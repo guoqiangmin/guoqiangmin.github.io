@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Analytics POC</title>
+  <style>
+    button {
+      border-radius: 4px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+      color: white;
+      cursor: pointer;
+      font-family: "Google Sans", arial, sans-serif;
+      font-size: 14px;
+      height: 40px;
+      letter-spacing: 0.25px;
+      outline: none;
+      overflow: hidden;
+      padding: 0 12px;
+      position: relative;
+      text-align: center;
+      vertical-align: middle;
+      white-space: nowrap;
+      width: auto;
+      display: inline-block;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: center;
+      vertical-align: middle;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      border: 1px solid transparent;
+      -webkit-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+      transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+      transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+      transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+      background-color: #1b6ca8;
+      border-color: #1b6ca8;
+      margin-right: 15px;
+    }
+
+    button:hover {
+      color: #fff;
+      background-color: #175c8f;
+      border-color: #165686;
+    }
+
+    textarea {
+      border-radius: 4px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      background-image: none;
+      border: 1px solid #dadce0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Analytics POC</h1>
+  <div style="margin-bottom: 20px;">
+    <button id="showAnalyticsBtn" onclick="showAnalytics();">Show Analytics</button>
+    <button id="revokeBtn" onclick="revokeToken();">Revoke access token</button>
+  </div>
+  <div>
+    <!-- The API response will be printed here. -->
+    <textarea cols="150" rows="40" id="query-output"></textarea>
+  </div>
+  <script>
+    let tokenClient;
+    let gapiInited;
+    let gisInited;
+
+    document.getElementById("showAnalyticsBtn").style.visibility="hidden";
+    document.getElementById("revokeBtn").style.visibility="hidden";
+
+    function checkBeforeStart() {
+       if (gapiInited && gisInited){
+          // Start only when both gapi and gis are initialized.
+          document.getElementById("showAnalyticsBtn").style.visibility="visible";
+          document.getElementById("revokeBtn").style.visibility="visible";
+       }
+    }
+
+    function gapiInit() {
+      gapi.client.init({
+        // NOTE: OAuth2 'scope' and 'client_id' parameters have moved to initTokenClient().
+      })
+      .then(function() {  // Load the Calendar API discovery document.
+        gapi.client.load('https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest');
+        gapiInited = true;
+        checkBeforeStart();
+      });
+    }
+
+    function gapiLoad() {
+        gapi.load('client', gapiInit)
+    }
+
+    function gisInit() {
+     tokenClient = google.accounts.oauth2.initTokenClient({
+                      client_id: '145769344397-p2enlg5q4rnaem51bh74g2hg00thftkc.apps.googleusercontent.com',
+                      scope: 'https://www.googleapis.com/auth/analytics.readonly', // https://www.googleapis.com/auth/calendar.readonly', 
+                      callback: '',  // defined at request time
+                  });
+      gisInited = true;
+      checkBeforeStart();
+    }
+
+    function lastNDays(n) {
+      var today = new Date();
+      var before = new Date();
+      before.setDate(today.getDate() - n);
+
+      var year = before.getFullYear();
+
+      var month = before.getMonth() + 1;
+      if (month < 10) {
+        month = '0' + month;
+      }
+
+      var day = before.getDate();
+      if (day < 10) {
+        day = '0' + day;
+      }
+
+      return [year, month, day].join('-');
+    }
+
+    function showAnalytics() {
+
+      tokenClient.callback = (resp) => {
+        if (resp.error !== undefined) {
+          throw(resp);
+        }
+        // GIS has automatically updated gapi.client with the newly issued access token.
+        console.log('gapi.client access token: ' + JSON.stringify(gapi.client.getToken()));
+
+        gapi.client.load('analytics', 'v3').then(function() {
+          console.log('analytics loaded')
+          
+          // Get a list of all Google Analytics accounts for this user
+          // gapi.client.analytics.management.accounts.list().then((resp) => {
+          //   console.log('Got account list:', resp);
+          // });
+
+          const profileId = '266951763';
+          // gapi.client.analytics.data.ga.get({
+          //   'ids': 'ga:' + profileId,
+          //   'start-date': lastNDays(14),
+          //   'end-date': lastNDays(0),
+          //   'metrics': 'ga:visits',
+          //   'dimensions': 'ga:source,ga:keyword',
+          //   'sort': '-ga:visits,ga:source',
+          //   'filters': 'ga:medium==organic',
+          //   'max-results': 25
+          // }).execute(displayResults);
+
+          gapi.client.request({
+            path: '/v4/reports:batchGet',
+            root: 'https://analyticsreporting.googleapis.com/',
+            method: 'POST',
+            body: {
+              reportRequests: [
+                {
+                  viewId: profileId,
+                  dateRanges: [
+                    {
+                      startDate: '7daysAgo',
+                      endDate: 'today'
+                    }
+                  ],
+                  metrics: [
+                    {
+                      expression: 'ga:users'
+                    },
+                    {
+                      expression: 'ga:sessions'
+                    },
+                    {
+                      expression: 'ga:avgSessionDuration'
+                    },
+                    {
+                      expression: 'ga:bounceRate'
+                    },
+                    {
+                      expression: 'ga:transactionRevenue'
+                    },
+                    {
+                      expression: 'ga:transactions'
+                    },
+                    {
+                      expression: 'ga:goalConversionRateAll'
+                    }
+                  ]
+                }
+              ]
+            }
+          }).then(displayResults);
+        });
+
+        document.getElementById("showAnalyticsBtn").innerText = "Refresh Analytics";
+      }
+
+      // Conditionally ask users to select the Google Account they'd like to use,
+      // and explicitly obtain their consent to fetch their Calendar.
+      // NOTE: To request an access token a user gesture is necessary.
+      if (gapi.client.getToken() === null) {
+        // Prompt the user to select an Google Account and asked for consent to share their data
+        // when establishing a new session.
+        tokenClient.requestAccessToken({prompt: 'consent'});
+      } else {
+        // Skip display of account chooser and consent dialog for an existing session.
+        tokenClient.requestAccessToken({prompt: ''});
+      }
+    }
+    
+    function displayResults(response) {
+      var formattedJson = JSON.stringify(response.result, null, 2);
+      console.log('response of analytics:', formattedJson)
+      document.getElementById('query-output').value = formattedJson;
+    }
+
+    function revokeToken() {
+      let cred = gapi.client.getToken();
+      if (cred !== null) {
+        google.accounts.oauth2.revoke(cred.access_token, () => {console.log('Revoked: ' + cred.access_token)});
+        gapi.client.setToken('');
+        document.getElementById("showAnalyticsBtn").innerText = "Show Analytics";
+      }
+    }
+  </script>
+  <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoad()"></script>
+  <script async defer src="https://accounts.google.com/gsi/client" onload="gisInit()"></script>
+</body>
+</html>
