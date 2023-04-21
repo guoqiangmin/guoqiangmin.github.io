@@ -25,10 +25,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: Path.resolve(__dirname, '../src/index.html'),
     }),
-    new HtmlWebpackPlugin({
-      filename: 'client.html',
-      template: Path.resolve(__dirname, '../src/client.html'),
-    })
+    // new HtmlWebpackPlugin({
+    //   filename: 'client.html',
+    //   template: Path.resolve(__dirname, '../src/client.html'),
+    // })
   ],
   resolve: {
     alias: {
