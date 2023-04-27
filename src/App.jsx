@@ -1,0 +1,51 @@
+import React, { Suspense, useEffect, useRef, useState } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { Loader } from '@react-three/drei'
+import state from './store/state'
+import { WaterEffects } from './components/WaterEffects'
+import { useTheme } from './hooks/useTheme'
+import { Content } from './components/Content'
+
+export default function App() {
+  const theme = useTheme()
+  const scrollArea = useRef()
+  const onScroll = (e) => (state.top = e.target.scrollTop)
+  useEffect(() => void onScroll({ target: scrollArea.current }), [])
+  const [pages, setPages] = useState(0)
+  return (
+    <>
+      <Canvas
+        shadows
+        raycaster={{ enabled: false }}
+        dpr={[1, 2]}
+        camera={{ position: [0, 0, 10], far: 1000 }}
+        gl={{ powerPreference: 'high-performance', alpha: false, antialias: false, stencil: false, depth: false }}
+        onCreated={({ gl }) => gl.setClearColor(theme.palette.background.default)}
+        linear={true}>
+        <pointLight position={[-10, -10, -10]} intensity={1} />
+        <ambientLight intensity={0.4} />
+        <spotLight
+          castShadow
+          angle={0.3}
+          penumbra={1}
+          position={[0, 10, 20]}
+          intensity={5}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        />
+        <Suspense fallback={null}>
+          <Content onReflow={setPages} />
+        </Suspense>
+        <WaterEffects />
+      </Canvas>
+      <div
+        className="scrollArea"
+        ref={scrollArea}
+        onScroll={onScroll}
+        onPointerMove={(e) => (state.mouse = [(e.clientX / window.innerWidth) * 2 - 1, (e.clientY / window.innerHeight) * 2 - 1])}>
+        <div style={{ height: `${pages * 100}vh` }} />
+      </div>
+      <Loader />
+    </>
+  )
+}

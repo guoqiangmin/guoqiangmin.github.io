@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { extend, useFrame } from '@react-three/fiber'
 import { Effects } from '@react-three/drei'
-import state from '../state'
+import state from '../store/state'
 import { MathUtils } from 'three'
 import { WaterPass } from './shaders/WaterPass'
 
