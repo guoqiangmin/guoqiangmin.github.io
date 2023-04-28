@@ -59,7 +59,11 @@ export default function App() {
           shadow-mapSize-height={1024}
         />
         <Suspense fallback={null}>
+          {/*<ScrollControls damping={0.3} pages={pages}>*/}
+          {/*  <Scroll>*/}
           <Content onReflow={setPages} />
+          {/*  </Scroll>*/}
+          {/*</ScrollControls>*/}
         </Suspense>
         <WaterEffects />
       </Canvas>

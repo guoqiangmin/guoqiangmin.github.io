@@ -5,6 +5,7 @@ import { HeightReporter } from './HeightReporter'
 import Text from './Text'
 import React from 'react'
 import { useTheme } from '../hooks/useTheme'
+// import { FadingImage } from './FadingImage'
 
 export function Page({ text, tag, images, textScaleFactor, onReflow, left = false }) {
   const theme = useTheme()
@@ -30,6 +31,7 @@ export function Page({ text, tag, images, textScaleFactor, onReflow, left = fals
         {textures.map((texture, index) => (
           <Box key={index} {...boxProps}>
             {(width, height) => (
+              // <FadingImage />
               <mesh>
                 <planeGeometry args={[width, height]} />
                 <meshBasicMaterial map={texture} toneMapped={false} />
