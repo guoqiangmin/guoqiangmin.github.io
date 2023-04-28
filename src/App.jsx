@@ -5,13 +5,37 @@ import state from './store/state'
 import { WaterEffects } from './components/WaterEffects'
 import { useTheme } from './hooks/useTheme'
 import { Content } from './components/Content'
+import { useThemeSetting } from './contexts/theme'
 
 export default function App() {
   const theme = useTheme()
+  const { applyTheme } = useThemeSetting()
+
   const scrollArea = useRef()
   const onScroll = (e) => (state.top = e.target.scrollTop)
   useEffect(() => void onScroll({ target: scrollArea.current }), [])
   const [pages, setPages] = useState(0)
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const systemModeHandler = (event) => {
+      const colorScheme = event.matches ? 'dark' : 'light'
+      console.log(colorScheme) // "dark" or "light"
+      // setMode(colorScheme);
+      applyTheme(colorScheme)
+    }
+
+    if (mediaQuery.matches) {
+      applyTheme('dark')
+    } else {
+      applyTheme('light')
+    }
+    mediaQuery.addEventListener('change', systemModeHandler)
+    return () => {
+      mediaQuery.removeEventListener('change', systemModeHandler)
+    }
+  }, [applyTheme])
+
   return (
     <>
       <Canvas
@@ -20,8 +44,9 @@ export default function App() {
         dpr={[1, 2]}
         camera={{ position: [0, 0, 10], far: 1000 }}
         gl={{ powerPreference: 'high-performance', alpha: false, antialias: false, stencil: false, depth: false }}
-        onCreated={({ gl }) => gl.setClearColor(theme.palette.background.default)}
+        // onCreated={({ gl }) => gl.setClearColor(theme.palette.background.default)}
         linear={true}>
+        <color attach="background" args={[theme.palette.background.default]} />
         <pointLight position={[-10, -10, -10]} intensity={1} />
         <ambientLight intensity={0.4} />
         <spotLight

@@ -28,9 +28,21 @@ const state = {
     },
   ],
   lines: [
-    { points: [[-20, 0, 0], [-9, 0, 0]], color: "black", lineWidth: 0.5 },
-    { points: [[20, 0, 0], [9, 0, 0]], color: "black", lineWidth: 0.5 },
-  ]
+    {
+      points: [
+        [-20, 0, 0],
+        [-9, 0, 0],
+      ],
+      lineWidth: 0.5,
+    },
+    {
+      points: [
+        [20, 0, 0],
+        [9, 0, 0],
+      ],
+      lineWidth: 0.5,
+    },
+  ],
 }
 
 export default state

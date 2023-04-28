@@ -12,7 +12,7 @@ const GREY = {
   600: '#666666',
   700: '#404040', // Dark Grey
   800: '#262626',
-  900: '#000000', // Black
+  900: '#121212', // Black
 }
 
 const getColorPalette = (mainColor, contrastText) => ({
@@ -60,8 +60,9 @@ export default function palette(themeMode) {
     ...COMMON,
     mode: 'light',
     text: {
-      primary: INFO.main,
-      secondary: alpha(INFO.main, 0.8),
+      primary: GREY[800],
+      secondary: GREY[600],
+      neutral: alpha(GREY[500], 0.16),
       disabled: alpha(INFO.main, 0.4),
     },
     background: { paper: GREY[0], default: GREY[100], neutral: GREY[300] },
@@ -76,8 +77,9 @@ export default function palette(themeMode) {
     mode: 'dark',
     text: {
       primary: GREY[100],
-      secondary: GREY[500],
-      disabled: GREY[600],
+      secondary: GREY[300],
+      neutral: alpha(GREY[600], 0.16),
+      disabled: GREY[500],
     },
     background: {
       paper: GREY[800],

@@ -8,8 +8,10 @@ import { Page } from './Page'
 import Text from './Text'
 import { Layercard } from './Layercard'
 import Geo from './Geo'
+import { useTheme } from '../hooks/useTheme'
 
 export function Content({ onReflow }) {
+  const theme = useTheme()
   const group = useRef()
   const { viewport, size } = useThree()
   const [bW, bH] = useAspect(1920, 1920, 0.5)
@@ -43,7 +45,7 @@ export function Content({ onReflow }) {
         <Box dir="row" width="100%" height="100%" align="center" justify="center">
           <Box centerAnchor>
             {state.lines.map((props, index) => (
-              <Line key={index} {...props} />
+              <Line key={index} color={theme.palette.text.primary} {...props} />
             ))}
             <Text
               bold
@@ -53,7 +55,7 @@ export function Content({ onReflow }) {
               fontSize={1.5 * scale}
               lineHeight={1}
               letterSpacing={-0.05}
-              color="black"
+              color={theme.palette.text.primary}
               maxWidth={(viewport.width / 4) * 3}>
               {state.depthbox[0].text}
             </Text>
