@@ -1,15 +1,13 @@
-import { useLoader, useThree } from '@react-three/fiber'
-import * as THREE from 'three'
+import { useThree } from '@react-three/fiber'
 import { Box } from '@react-three/flex'
 import { HeightReporter } from './HeightReporter'
 import Text from './Text'
 import React from 'react'
 import { useTheme } from '../hooks/useTheme'
-// import { FadingImage } from './FadingImage'
+import { FadingImage } from './FadingImage'
 
 export function Page({ text, tag, images, textScaleFactor, onReflow, left = false }) {
   const theme = useTheme()
-  const textures = useLoader(THREE.TextureLoader, images)
   const { viewport } = useThree()
   const boxProps = {
     centerAnchor: true,
@@ -20,23 +18,26 @@ export function Page({ text, tag, images, textScaleFactor, onReflow, left = fals
     width: 'auto',
     height: 'auto',
     minWidth: 3,
-    minHeight: 3,
+    minHeight: 3, // 3
     maxWidth: 6,
-    maxHeight: 6,
+    maxHeight: 6, // 6
   }
   return (
     <Box dir="column" align={left ? 'flex-start' : 'flex-end'} justify="flex-start" width="100%" height="auto" minHeight="100%">
       <HeightReporter onReflow={onReflow} />
       <Box dir="row" width="100%" height="auto" justify={left ? 'flex-end' : 'flex-start'} margin={0} grow={1} wrap="wrap">
-        {textures.map((texture, index) => (
+        {images.map((image, index) => (
           <Box key={index} {...boxProps}>
-            {(width, height) => (
-              // <FadingImage />
-              <mesh>
-                <planeGeometry args={[width, height]} />
-                <meshBasicMaterial map={texture} toneMapped={false} />
-              </mesh>
-            )}
+            {(width, height) => {
+              console.log(width, height)
+              return (
+                <FadingImage image={image} width={width} height={height} />
+                // <mesh>
+                //   <planeGeometry args={[width, height]} />
+                //   <meshBasicMaterial map={texture} toneMapped={false} />
+                // </mesh>
+              )
+            }}
           </Box>
         ))}
       </Box>
