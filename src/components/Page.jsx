@@ -28,16 +28,7 @@ export function Page({ text, tag, images, textScaleFactor, onReflow, left = fals
       <Box dir="row" width="100%" height="auto" justify={left ? 'flex-end' : 'flex-start'} margin={0} grow={1} wrap="wrap">
         {images.map((image, index) => (
           <Box key={index} {...boxProps}>
-            {(width, height) => {
-              console.log(width, height)
-              return (
-                <FadingImage image={image} width={width} height={height} />
-                // <mesh>
-                //   <planeGeometry args={[width, height]} />
-                //   <meshBasicMaterial map={texture} toneMapped={false} />
-                // </mesh>
-              )
-            }}
+            {(width, height) => <FadingImage image={image} width={width} height={height} />}
           </Box>
         ))}
       </Box>

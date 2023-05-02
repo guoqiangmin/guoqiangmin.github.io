@@ -1,7 +1,7 @@
 const state = {
   top: 0,
   pages: 0,
-  threshold: 4,
+  threshold: 5.5,
   mouse: [0, 0],
   content: [
     {
@@ -67,13 +67,14 @@ const state = {
       depth: 0,
       color: '#cccccc',
       textColor: '#ffffff',
-      text: 'In a void,\nno one could say\nwhy a thing\nonce set in motion\nshould stop anywhere.',
+      text: 'In the vast expanse\nof possibilities,\ninnovation knows\nno bounds.\nThe journey of\ndigital transformation\nnever stops...',
       image: '/images/cAKwexj.jpg',
     },
     {
       depth: -5,
       textColor: '#272727',
-      text: 'For why should it stop\nhere rather than here?\nSo that a thing\nwill either be at rest\nor must be moved\nad infinitum.',
+      text: 'Explore limitless possibilities\nfor digital transformation\nin IT with ignited\ninnovative vision.\nUnleash the power of\nthe future today.',
+      // text: 'Discover how ingenious\nvision and innovative\ntechnologies are\nrevolutionizing the IT\nindustry,\ndriving growth, and\ncreating new\nopportunities.',
       image: '/images/04zTfWB.jpg',
     },
   ],

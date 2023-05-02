@@ -20,16 +20,23 @@ export function Content({ onReflow }) {
   const pageLerp = useRef(state.top / size.height)
   useFrame(() => {
     const page = (pageLerp.current = THREE.MathUtils.lerp(pageLerp.current, state.top / size.height, 0.15))
-    const y = page * viewport.height
-    const sticky = state.threshold * viewport.height
-    group.current.position.lerp(vec.set(0, page < state.threshold ? y : sticky, page < state.threshold ? 0 : page * 1.25), 0.15)
+    const y = (page - state.threshold) * viewport.height
+    const sticky = 0 //state.threshold * viewport.height
+    console.log('page:', page)
+    group.current.position.lerp(vec.set(0, page < state.threshold ? sticky : y, page < state.threshold ? page * 1.25 : 0), 0.15)
   })
-  const handleReflow = useCallback((w, h) => onReflow((state.pages = h / viewport.height + 5.5)), [onReflow, viewport.height])
+  const handleReflow = useCallback((w, h) => onReflow((state.pages = h / viewport.height + 4)), [onReflow, viewport.height])
   const sizesRef = useRef([])
   const scale = Math.min(1, viewport.width / 16)
   return (
     <group ref={group}>
       <Flex dir="column" position={[-viewport.width / 2, viewport.height / 2, 0]} size={[viewport.width, viewport.height, 0]} onReflow={handleReflow}>
+        <Box dir="row" width="100%" height="100%" align="center" justify="center">
+          <Box>
+            <Layercard {...state.depthbox[0]} text={state.depthbox[1].text} boxWidth={bW} boxHeight={bH} map={texture} textScaleFactor={scale} />
+            <Geo position={[bW / 2, -bH / 2, 2]} />
+          </Box>
+        </Box>
         {state.content.map((props, index) => (
           <Page
             key={index}
@@ -59,12 +66,6 @@ export function Content({ onReflow }) {
               maxWidth={(viewport.width / 4) * 3}>
               {state.depthbox[0].text}
             </Text>
-          </Box>
-        </Box>
-        <Box dir="row" width="100%" height="100%" align="center" justify="center">
-          <Box>
-            <Layercard {...state.depthbox[0]} text={state.depthbox[1].text} boxWidth={bW} boxHeight={bH} map={texture} textScaleFactor={scale} />
-            <Geo position={[bW / 2, -bH / 2, state.depthbox[1].depth]} />
           </Box>
         </Box>
       </Flex>
