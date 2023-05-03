@@ -6,6 +6,7 @@ import { WaterEffects } from './components/WaterEffects'
 import { useTheme } from './hooks/useTheme'
 import { Content } from './components/Content'
 import { useThemeSetting } from './contexts/theme'
+import { CustomCursor } from './components/CustomCursor'
 
 export default function App() {
   const theme = useTheme()
@@ -38,6 +39,7 @@ export default function App() {
 
   return (
     <>
+      <CustomCursor />
       <Canvas
         shadows
         raycaster={{ enabled: false }}

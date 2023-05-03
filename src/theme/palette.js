@@ -24,13 +24,13 @@ const getColorPalette = (mainColor, contrastText) => ({
   contrastText,
 })
 
-const PRIMARY = getColorPalette('#FEFF88', GREY[700])
-const SECONDARY = getColorPalette('#4BFCFF', GREY[100])
-const INFO = getColorPalette('#80CEFF', GREY[100])
-const SUCCESS = getColorPalette('#92FF9B', GREY[100])
-const WARNING = getColorPalette('#FFD57C', GREY[700])
-const ERROR = getColorPalette('#FFAD98', GREY[100])
-const FEATURE = getColorPalette('#E2B2FF', GREY[100])
+const PRIMARY = getColorPalette('#dbef52', GREY[700])
+const SECONDARY = getColorPalette('#efbd52', GREY[100])
+const INFO = getColorPalette('#52efe5', GREY[100])
+const SUCCESS = getColorPalette('#b2ef52', GREY[100])
+const WARNING = getColorPalette('#ef7352', GREY[700])
+const ERROR = getColorPalette('#ef5252', GREY[100])
+const FEATURE = getColorPalette('#d352ef', GREY[100])
 
 const COMMON = {
   common: { black: '#000000', white: '#FFFFFF' },
@@ -61,7 +61,7 @@ export default function palette(themeMode) {
     mode: 'light',
     text: {
       primary: GREY[800],
-      secondary: GREY[600],
+      secondary: GREY[700],
       neutral: alpha(GREY[500], 0.16),
       disabled: alpha(INFO.main, 0.4),
     },

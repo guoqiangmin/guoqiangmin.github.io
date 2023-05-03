@@ -5,8 +5,8 @@ const state = {
   mouse: [0, 0],
   content: [
     {
-      tag: '00',
-      text: `The Bacchic\nand Dionysiac\nRites`,
+      tag: '01',
+      text: `Portfolio`,
       // images: ['/images/BH41NVu.jpg', '/images/fBoIJLX.jpg', '/images/04zTfWB.jpg'],
       images: [
         {
@@ -24,8 +24,8 @@ const state = {
       ],
     },
     {
-      tag: '01',
-      text: `The Elysian\nMysteries`,
+      tag: '02',
+      text: `Case Study`,
       // images: ['/images/c4cA8UN.jpg', '/images/ajQ73ol.jpg', '/images/gZOmLNU.jpg']
       images: [
         {
@@ -43,8 +43,8 @@ const state = {
       ],
     },
     {
-      tag: '02',
-      text: `The Hiramic\nLegend`,
+      tag: '03',
+      text: `About Me`,
       // images: ['/images/mbFIW1b.jpg', '/images/mlDUVig.jpg', '/images/gwuZrgo.jpg']
       images: [
         {
@@ -73,7 +73,7 @@ const state = {
     {
       depth: -5,
       textColor: '#272727',
-      text: 'Explore limitless possibilities\nfor digital transformation\nin IT with ignited\ninnovative vision.\nUnleash the power of\nthe future today.',
+      text: 'Explore limitless possibilities\nfor digital transformation\nin IT with ignited\ninnovative vision.\nUnleash the power\nof the future today.',
       // text: 'Discover how ingenious\nvision and innovative\ntechnologies are\nrevolutionizing the IT\nindustry,\ndriving growth, and\ncreating new\nopportunities.',
       image: '/images/04zTfWB.jpg',
     },
