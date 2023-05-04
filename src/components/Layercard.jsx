@@ -20,7 +20,7 @@ export function Layercard({ depth, boxWidth, boxHeight, text, textColor, color, 
       </mesh>
       <Text
         bold
-        position={[boxWidth / 2 + 0.5, -boxHeight / 2, depth + 1.5]}
+        position={[boxWidth / 2, -boxHeight / 2, depth + 1.2]}
         maxWidth={(viewport.width / 4) * 1}
         anchorX="center"
         anchorY="middle"

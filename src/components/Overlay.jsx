@@ -1,11 +1,15 @@
 import styled from 'styled-components'
 import { LogoFull } from './Logo'
 import { useTheme } from '../hooks/useTheme'
+import { IconLinkedIn } from './icons/LinkedIn'
+import { IconGithub } from './icons/Github'
+import { IconWhatsApp } from './icons/WhatsApp'
+import { IconMail } from './icons/Mail'
 
 const TopLeft = styled.div`
   position: absolute;
-  top: calc(2vw - 10px);
-  left: 2vw;
+  top: calc(1.5vw - 10px);
+  left: 1.5vw;
   font-family: 'Playfair Display', serif;
   font-weight: 700;
   font-size: min(10vw, 3em);
@@ -14,8 +18,8 @@ const TopLeft = styled.div`
 
 const BottomLeft = styled.div`
   position: absolute;
-  bottom: 2vw;
-  left: 2vw;
+  bottom: 1.5vw;
+  left: 1.5vw;
   font-family: 'Playfair Display', serif;
   font-weight: 900;
   font-size: min(15vw, 4em);
@@ -25,21 +29,21 @@ const BottomLeft = styled.div`
 
 const BottomRight = styled.div`
   position: absolute;
-  bottom: 2vw;
-  right: 2vw;
+  bottom: 1.5vw;
+  right: 1.5vw;
   font-family: 'Inter';
   font-weight: 400;
   line-height: 1em;
-  letter-spacing: -0.01em;
+  //letter-spacing: -0.01em;
   font-size: 12px;
-  text-align: right;
+  //text-align: right;
   color: ${(props) => props.color || '#fff'};
 `
 
 const LeftMiddle = styled.div`
   position: absolute;
   bottom: 50%;
-  right: 2vw;
+  right: 1.5vw;
   font-family: 'Inter';
   font-weight: 400;
   line-height: 1em;
@@ -63,8 +67,8 @@ const Hamburger = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  top: 2vw;
-  right: 2vw;
+  top: 1.5vw;
+  right: 1.5vw;
   & > div {
     position: relative;
     width: 24px;
@@ -80,18 +84,26 @@ export default function Overlay() {
     <>
       <TopLeft>
         {/*<i>Ingenious Vision</i>*/}
-        <LogoFull color={theme.palette.text.primary} />
+        <LogoFull color={theme.palette.text.secondary} />
       </TopLeft>
-      <BottomLeft color={theme.palette.text.primary}>GM</BottomLeft>
-      <BottomRight color={theme.palette.text.primary}>
-        2023
-        <br />
-        Created by
-        <br />
-        Guoqiang Min
+      <BottomLeft>
+        <a target="_blank" href="https://www.linkedin.com/in/guoqiang-min" rel="noreferrer">
+          <IconLinkedIn width={36} height={36} color={theme.palette.text.secondary} />
+        </a>
+        <a target="_blank" href="https://github.com/guoqiangmin" rel="noreferrer" style={{ marginLeft: '10px' }}>
+          <IconGithub width={36} height={36} color={theme.palette.text.secondary} />
+        </a>
+      </BottomLeft>
+      <BottomRight>
+        <a href="mailto:minguoqiang88@gmail.com" rel="noreferrer">
+          <IconMail width={36} height={36} color={theme.palette.text.secondary} />
+        </a>
+        <a target="_blank" href="https://wa.me/89684412430" rel="noreferrer" style={{ marginLeft: '10px' }}>
+          <IconWhatsApp width={36} height={36} color={theme.palette.text.secondary} />
+        </a>
       </BottomRight>
-      <LeftMiddle color={theme.palette.text.primary}>A Personal Portfolio</LeftMiddle>
-      <Hamburger color={theme.palette.text.primary}>
+      <LeftMiddle color={theme.palette.text.secondary}>A Personal Portfolio</LeftMiddle>
+      <Hamburger color={theme.palette.text.secondary}>
         <div />
         <div />
         <div />

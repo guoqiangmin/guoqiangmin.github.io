@@ -42,7 +42,7 @@ export function Page({ text, tag, images, textScaleFactor, onReflow, left = fals
           fontSize={1.5 * textScaleFactor}
           lineHeight={1}
           letterSpacing={-0.05}
-          color={theme.palette.text.secondary}
+          color={theme.palette.text.primary}
           maxWidth={(viewport.width / 4) * 3}>
           {text}
         </Text>
