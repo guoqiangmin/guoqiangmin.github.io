@@ -5,6 +5,8 @@ import Text from './Text'
 import React from 'react'
 import { useTheme } from '../hooks/useTheme'
 import { FadingImage } from './FadingImage'
+// import { Shape } from './Shape'
+// import { useControls } from 'leva'
 
 export function Page({ text, tag, images, textScaleFactor, onReflow, left = false }) {
   const theme = useTheme()
@@ -22,6 +24,7 @@ export function Page({ text, tag, images, textScaleFactor, onReflow, left = fals
     maxWidth: 6,
     maxHeight: 7, // 6
   }
+
   return (
     <Box dir="column" align={left ? 'flex-start' : 'flex-end'} justify="flex-start" marginLeft={2} marginRight={2} height="auto" minHeight="100%">
       <HeightReporter onReflow={onReflow} />

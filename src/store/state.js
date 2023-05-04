@@ -25,7 +25,7 @@ const state = {
     },
     {
       tag: '02',
-      text: `Case Study`,
+      text: `About Me`,
       // images: ['/images/c4cA8UN.jpg', '/images/ajQ73ol.jpg', '/images/gZOmLNU.jpg']
       images: [
         {
@@ -39,25 +39,6 @@ const state = {
         {
           front: '/images/gZOmLNU.jpg',
           back: '/images/gZOmLNU.jpg',
-        },
-      ],
-    },
-    {
-      tag: '03',
-      text: `About Me`,
-      // images: ['/images/mbFIW1b.jpg', '/images/mlDUVig.jpg', '/images/gwuZrgo.jpg']
-      images: [
-        {
-          front: '/images/mbFIW1b.jpg',
-          back: '/images/mbFIW1b.jpg',
-        },
-        {
-          front: '/images/mlDUVig.jpg',
-          back: '/images/mlDUVig.jpg',
-        },
-        {
-          front: '/images/gwuZrgo.jpg',
-          back: '/images/gwuZrgo.jpg',
         },
       ],
     },

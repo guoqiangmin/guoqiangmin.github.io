@@ -23,7 +23,7 @@ export function Content({ onReflow }) {
     const y = (page - state.threshold) * viewport.height
     const sticky = 0 //state.threshold * viewport.height
     console.log('page:', page)
-    group.current.position.lerp(vec.set(0, page < state.threshold ? sticky : y, page < state.threshold ? page * 1.25 : 0), 0.15)
+    group.current.position.lerp(vec.set(0, page < state.threshold ? sticky : y, page < state.threshold ? 5.5 - page * 1.25 : 0), 0.15)
   })
   const handleReflow = useCallback((w, h) => onReflow((state.pages = h / viewport.height + 4)), [onReflow, viewport.height])
   const sizesRef = useRef([])
