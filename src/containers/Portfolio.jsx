@@ -2,9 +2,10 @@ import { useThree } from '@react-three/fiber'
 import { Box } from '@react-three/flex'
 import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
-import React from 'react'
+import React, { useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
 import { FadingImage } from '../components/FadingImage'
+import { SliderEffect } from '../components/SliderEffect'
 
 const portfolioData = {
   tag: '01',
@@ -37,11 +38,12 @@ export function Portfolio({ onReflow }) {
     width: 'auto',
     height: 'auto',
     minWidth: 3,
-    minHeight: 6.5, // 3
-    maxWidth: 6,
-    maxHeight: 7, // 6
+    minHeight: 7.5, // 3
+    maxWidth: 30.75,
+    maxHeight: 10.5, // 6
   }
   const scale = Math.min(1, viewport.width / 16)
+  const [currentIndex, setCurrentIndex] = useState(1)
 
   return (
     <Box dir="column" align={'center'} justify="flex-start" marginLeft={2} marginRight={2} marginTop={2} height="auto">
@@ -66,11 +68,7 @@ export function Portfolio({ onReflow }) {
         </Text>
       </Box>
       <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
-        {portfolioData.images.map((image, index) => (
-          <Box key={index} {...boxProps}>
-            {(width, height) => <FadingImage image={image} width={width} height={height} />}
-          </Box>
-        ))}
+        <Box {...boxProps}>{(width, height) => <SliderEffect image={portfolioData.images[currentIndex]} width={width} height={height} />}</Box>
       </Box>
     </Box>
   )

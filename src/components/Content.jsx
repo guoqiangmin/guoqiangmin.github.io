@@ -3,12 +3,12 @@ import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import state from '../store/state'
 import { Flex } from '@react-three/flex'
-import { Home } from '../pages/Home'
-import { Portfolio } from '../pages/Portfolio'
-import { About } from '../pages/About'
-import { Contact } from '../pages/Contact'
-import { Breakdown } from '../pages/Breakdown'
-import { Skills } from '../pages/Skills'
+import { Home } from '../containers/Home'
+import { Portfolio } from '../containers/Portfolio'
+import { About } from '../containers/About'
+import { Contact } from '../containers/Contact'
+import { Breakdown } from '../containers/Breakdown'
+import { Skills } from '../containers/Skills'
 
 export function Content({ onReflow }) {
   const group = useRef()
