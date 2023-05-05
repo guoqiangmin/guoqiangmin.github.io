@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 import { extend, useFrame } from '@react-three/fiber'
 import { useTexture, shaderMaterial } from '@react-three/drei'
 
-export const ImageSplitMaterial = shaderMaterial(
+export const ImageWipeMaterial = shaderMaterial(
   {
     progressFactor: 0,
     divisionsFactor: 15,
@@ -67,9 +67,9 @@ export const ImageSplitMaterial = shaderMaterial(
     }`
 )
 
-extend({ ImageSplitMaterial })
+extend({ ImageWipeMaterial })
 
-export function SliderEffect({ image, width, height }) {
+export function SliderImage({ image, width, height }) {
   const ref = useRef()
   const [texture1, texture2] = useTexture([image.front, '/img/Img2.jpg'])
   const [hovered, setHover] = useState(false)
@@ -80,7 +80,7 @@ export function SliderEffect({ image, width, height }) {
   return (
     <mesh onPointerOver={(e) => setHover(true)} onPointerOut={(e) => setHover(false)}>
       <planeGeometry args={[width, height]} />
-      <imageSplitMaterial ref={ref} tex={texture1} tex2={texture2} divisionsFactor={25} zoomFactor={0} toneMapped={false} />
+      <imageWipeMaterial ref={ref} tex={texture1} tex2={texture2} divisionsFactor={25} zoomFactor={0} toneMapped={false} />
     </mesh>
   )
 }

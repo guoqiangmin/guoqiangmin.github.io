@@ -4,8 +4,7 @@ import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
 import React, { useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
-import { FadingImage } from '../components/FadingImage'
-import { SliderEffect } from '../components/SliderEffect'
+import { SliderImage } from '../components/SliderImage'
 
 const portfolioData = {
   tag: '01',
@@ -43,7 +42,7 @@ export function Portfolio({ onReflow }) {
     maxHeight: 10.5, // 6
   }
   const scale = Math.min(1, viewport.width / 16)
-  const [currentIndex, setCurrentIndex] = useState(1)
+  const [currentIndex] = useState(0)
 
   return (
     <Box dir="column" align={'center'} justify="flex-start" marginLeft={2} marginRight={2} marginTop={2} height="auto">
@@ -68,7 +67,7 @@ export function Portfolio({ onReflow }) {
         </Text>
       </Box>
       <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
-        <Box {...boxProps}>{(width, height) => <SliderEffect image={portfolioData.images[currentIndex]} width={width} height={height} />}</Box>
+        <Box {...boxProps}>{(width, height) => <SliderImage image={portfolioData.images[currentIndex]} width={width} height={height} />}</Box>
       </Box>
     </Box>
   )
