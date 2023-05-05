@@ -37,9 +37,9 @@ export function Portfolio({ onReflow }) {
     width: 'auto',
     height: 'auto',
     minWidth: 3,
-    minHeight: 7.5, // 3
+    minHeight: 6.5, // 3
     maxWidth: 30.75,
-    maxHeight: 10.5, // 6
+    maxHeight: 7, // 6
   }
   const scale = Math.min(1, viewport.width / 16)
   const [currentIndex] = useState(0)
