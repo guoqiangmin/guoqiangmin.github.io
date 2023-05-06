@@ -5,6 +5,7 @@ import Text from '../components/Text'
 import React from 'react'
 import { useTheme } from '../hooks/useTheme'
 import { FadingImage } from '../components/FadingImage'
+import { Html } from '@react-three/drei'
 
 const contactData = {
   tag: '03',
@@ -24,6 +25,27 @@ const contactData = {
       back: '/images/gZOmLNU.jpg',
     },
   ],
+}
+
+export function ContactForm({ width, height }) {
+  return (
+    <mesh>
+      <planeGeometry args={[width, height]} />
+      <Html
+        style={{
+          transition: 'all 0.2s',
+          opacity: 1,
+        }}
+        transform>
+        <div style={{ color: '#000', maxHeight: '300px', overflow: 'hidden' }}>
+          <span style={{ color: '#000' }}>Size</span>
+          <span style={{ color: '#000' }}>Size</span>
+          <span style={{ color: '#000' }}>Size</span>
+          <span style={{ color: '#000' }}>Size</span>
+        </div>
+      </Html>
+    </mesh>
+  )
 }
 
 export function Contact({ onReflow }) {
@@ -72,9 +94,7 @@ export function Contact({ onReflow }) {
         </Text>
       </Box>
       <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
-        <Box {...{ ...boxProps, maxWidth: 19, marginBottom: 1 }}>
-          {(width, height) => <FadingImage image={contactData.images[0]} width={width} height={height} />}
-        </Box>
+        <Box {...{ ...boxProps, maxWidth: 19, marginBottom: 1 }}>{(width, height) => <ContactForm width={width} height={height} />}</Box>
       </Box>
     </Box>
   )
