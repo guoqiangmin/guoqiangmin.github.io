@@ -20,9 +20,9 @@ export function Page({ text, tag, images, textScaleFactor, onReflow, left = fals
     width: 'auto',
     height: 'auto',
     minWidth: 3,
-    minHeight: 5.5, // 3
+    minHeight: 3,
     maxWidth: 6,
-    maxHeight: 7, // 6
+    maxHeight: 6,
   }
 
   return (

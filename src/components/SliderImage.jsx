@@ -80,7 +80,8 @@ export function SliderImage({ image, width, height }) {
   return (
     <mesh onPointerOver={(e) => setHover(true)} onPointerOut={(e) => setHover(false)}>
       <planeGeometry args={[width, height]} />
-      <imageWipeMaterial ref={ref} tex={texture1} tex2={texture2} divisionsFactor={25} zoomFactor={0} toneMapped={false} />
+      {/*<shapeGeometry args={[RoundedRect(width, height, 0.2)]} />*/}
+      <imageWipeMaterial ref={ref} tex={texture1} tex2={texture2} divisionsFactor={35} zoomFactor={0} toneMapped={false} />
     </mesh>
   )
 }

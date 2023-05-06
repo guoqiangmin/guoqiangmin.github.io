@@ -85,13 +85,13 @@ const TopRight = styled.div`
   flex-direction: column;
   top: 1.5vw;
   right: 1.5vw;
-  & > div {
-    position: relative;
-    width: 24px;
-    height: 2px;
-    background: ${(props) => props.color || '#fff'};
-    margin-bottom: 6px;
-  }
+  // & > div {
+  //   position: relative;
+  //   width: 24px;
+  //   height: 2px;
+  //   background: ${(props) => props.color || '#fff'};
+  //   margin-bottom: 6px;
+  // }
 
   & .nav__list {
     list-style: none;
@@ -119,7 +119,7 @@ const TopRight = styled.div`
         margin-left: 18px;
       }
       & > .nav__link {
-        color: #000;
+        color: ${(props) => props.color || '#fff'};
         text-decoration: none;
         background-color: transparent;
         position: relative;
@@ -134,7 +134,7 @@ const TopRight = styled.div`
           bottom: 0;
           width: 100%;
           height: 1px;
-          background-color: #fff;
+          //background-color: #fff;
           -webkit-transform: scale(0, 1);
           transform: scale(0, 1);
           -webkit-transform-origin: right top;
@@ -143,7 +143,7 @@ const TopRight = styled.div`
           transition: -webkit-transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
           transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
           transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-          background-color: #222;
+          background-color: ${(props) => props.backgroundColor || '#fff'};
         }
         &:hover:before,
         &:focus:before {
@@ -182,7 +182,7 @@ export default function Overlay() {
         </a>
       </BottomRight>
       <LeftMiddle color={theme.palette.text.secondary}>A Personal Portfolio</LeftMiddle>
-      <TopRight>
+      <TopRight color={theme.palette.text.secondary} backgroundColor={theme.palette.text.secondary}>
         <nav className="header__nav">
           <ul className="nav__list">
             <li className="nav__item">

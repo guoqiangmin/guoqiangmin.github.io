@@ -49,6 +49,7 @@ export function FadingImage({ image, width, height }) {
   return (
     <mesh onPointerOver={(e) => setHover(true)} onPointerOut={(e) => setHover(false)}>
       <planeGeometry args={[width, height]} />
+      {/*<shapeGeometry args={[RoundedRect(width, height, 0.2)]} />*/}
       <imageFadeMaterial ref={ref} tex={texture1} tex2={texture2} disp={dispTexture} toneMapped={false} />
     </mesh>
   )
