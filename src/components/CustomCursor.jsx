@@ -1,7 +1,7 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, memo } from 'react'
 // import "./style.scss"
 
-export const CustomCursor = () => {
+const CustomCursor = () => {
   // const { type } = useContext(CustomCursorContext);
   const secondaryCursor = useRef(null)
   // const mainCursor = useRef(null)
@@ -16,7 +16,7 @@ export const CustomCursor = () => {
   })
 
   useEffect(() => {
-    document.addEventListener('mousemove', (event) => {
+    const eventHandler = (event) => {
       const { clientX, clientY } = event
 
       const mouseX = clientX
@@ -27,9 +27,13 @@ export const CustomCursor = () => {
       // mainCursor.current.style.transform = `translate3d(${mouseX - mainCursor.current.clientWidth / 2}px, ${
       //   mouseY - mainCursor.current.clientHeight / 2
       // }px, 0)`
-    })
+      secondaryCursor.current.style.opacity = '1'
+    }
+    document.addEventListener('mousemove', eventHandler)
 
-    return () => {}
+    return () => {
+      document.removeEventListener('mousemove', eventHandler)
+    }
   }, [])
 
   useEffect(() => {
@@ -65,3 +69,5 @@ export const CustomCursor = () => {
     </div>
   )
 }
+
+export default memo(CustomCursor)

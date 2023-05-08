@@ -16,16 +16,49 @@ const TopLeft = styled.div`
   line-height: 0.9em;
 `
 
-// const BottomLeft = styled.div`
-//   position: absolute;
-//   bottom: 1.5vw;
-//   left: 1.5vw;
-//   font-family: 'Playfair Display', serif;
-//   font-weight: 900;
-//   font-size: min(15vw, 4em);
-//   line-height: 0.7em;
-//   color: ${(props) => props.color || '#fff'};
-// `
+const BottomLeft = styled.div`
+  position: absolute;
+  bottom: 1.5vw;
+  left: 1.5vw;
+  // font-family: 'Playfair Display', serif;
+  // font-weight: 900;
+  // font-size: min(15vw, 4em);
+  // line-height: 0.7em;
+  // color: ${(props) => props.color || '#fff'};
+  & .header__arrow {
+    display: block;
+    height: 5.2rem;
+    margin-top: 0rem;
+    //position: absolute;
+    //right: 0;
+    //top: 100%;
+    width: 1.7rem;
+    transform: translate(0px, 0px);
+  }
+
+  & .header__arrow__dash {
+    border-right: 1px solid #f2f2f2;
+    height: 5rem;
+    left: 50%;
+    position: absolute;
+    top: 0;
+    transform: translate(-50%, 0);
+  }
+
+  & .header__arrow__triangle {
+    border-color: #f2f2f2;
+    border-style: solid;
+    border-width: 1px 1px 0 0;
+    bottom: 1.845rem;
+    height: 1.2rem;
+    left: 50%;
+    margin-left: -0.35px;
+    position: absolute;
+    transform: rotate(135deg);
+    transform-origin: 0px 100%;
+    width: 1.2rem;
+  }
+`
 
 const BottomRight = styled.div`
   position: absolute;
@@ -137,7 +170,6 @@ const TopRight = styled.div`
           -webkit-transition: -webkit-transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
           transition: -webkit-transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
           transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-          transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
           background-color: ${(props) => props.bgcolor || '#fff'};
         }
         &:hover:before,
@@ -159,14 +191,12 @@ export default function Overlay() {
       <TopLeft>
         <LogoSimple color={theme.palette.text.secondary} />
       </TopLeft>
-      {/*<BottomLeft>*/}
-      {/*  <a href="mailto:minguoqiang88@gmail.com" rel="noreferrer">*/}
-      {/*    <IconMail width={30} height={30} color={theme.palette.text.secondary} />*/}
-      {/*  </a>*/}
-      {/*  <a target="_blank" href="https://wa.me/89684412430" rel="noreferrer" style={{ marginLeft: '10px' }}>*/}
-      {/*    <IconWhatsApp width={30} height={30} color={theme.palette.text.secondary} />*/}
-      {/*  </a>*/}
-      {/*</BottomLeft>*/}
+      <BottomLeft>
+        <div className="header__arrow">
+          <div className="header__arrow__dash"></div>
+          <div className="header__arrow__triangle"></div>
+        </div>
+      </BottomLeft>
       <BottomRight>
         <a target="_blank" href="https://www.linkedin.com/in/guoqiang-min" rel="noreferrer">
           <IconLinkedIn width={30} height={30} color={theme.palette.text.secondary} />
