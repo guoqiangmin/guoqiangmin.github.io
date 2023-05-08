@@ -2,9 +2,8 @@ import { useThree } from '@react-three/fiber'
 import { Box } from '@react-three/flex'
 import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { useTheme } from '../hooks/useTheme'
-import { FadingImage } from '../components/FadingImage'
 import { Html } from '@react-three/drei'
 import { RoundedRect } from '../components/RoundedRect'
 import styled from 'styled-components'
@@ -100,13 +99,13 @@ const Button = styled.button`
   }
 `
 
-const Description = styled.p`
-  font-size: 1.1em;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 200;
-  color: var(--description-color);
-  margin: 0 0 8px 0;
-`
+// const Description = styled.p`
+//   font-size: 1.1em;
+//   font-family: 'Roboto', sans-serif;
+//   font-weight: 200;
+//   color: var(--description-color);
+//   margin: 0 0 8px 0;
+// `
 
 export function ContactForm({ width, height }) {
   const theme = useTheme()
@@ -123,26 +122,11 @@ export function ContactForm({ width, height }) {
       email: emailRef.current.value,
       message: messageRef.current.value,
     }
+    console.log('form data:', formData)
     // onSubmit(formData);
   }
 
   return (
-    // <mesh>
-    //   <planeGeometry args={[width, height]} />
-    //   <Html
-    //     style={{
-    //       transition: 'all 0.2s',
-    //       opacity: 1,
-    //     }}
-    //     transform>
-    //     <div style={{ color: '#000', maxHeight: '300px', overflow: 'hidden' }}>
-    //       <span style={{ color: '#000' }}>Size</span>
-    //       <span style={{ color: '#000' }}>Size</span>
-    //       <span style={{ color: '#000' }}>Size</span>
-    //       <span style={{ color: '#000' }}>Size</span>
-    //     </div>
-    //   </Html>
-    // </mesh>
     <group>
       <mesh>
         {/*<planeGeometry args={[width, height]} />*/}

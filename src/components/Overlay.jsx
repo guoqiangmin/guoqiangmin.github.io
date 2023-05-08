@@ -4,9 +4,7 @@ import { useTheme } from '../hooks/useTheme'
 import { IconLinkedIn } from './icons/LinkedIn'
 import { IconGithub } from './icons/Github'
 import state from '../store/state'
-import React from 'react'
-// import { IconWhatsApp } from './icons/WhatsApp'
-// import { IconMail } from './icons/Mail'
+import React, { Fragment } from 'react'
 
 const TopLeft = styled.div`
   position: absolute;
@@ -88,13 +86,6 @@ const TopRight = styled.div`
   flex-direction: column;
   top: 1.5vw;
   right: 1.5vw;
-  // & > div {
-  //   position: relative;
-  //   width: 24px;
-  //   height: 2px;
-  //   background: ${(props) => props.color || '#fff'};
-  //   margin-bottom: 6px;
-  // }
 
   & .nav__list {
     list-style: none;
@@ -147,7 +138,7 @@ const TopRight = styled.div`
           transition: -webkit-transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
           transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
           transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-          background-color: ${(props) => props.backgroundColor || '#fff'};
+          background-color: ${(props) => props.bgcolor || '#fff'};
         }
         &:hover:before,
         &:focus:before {
@@ -166,13 +157,7 @@ export default function Overlay() {
   return (
     <>
       <TopLeft>
-        {/*<LogoFull color={theme.palette.text.secondary} />*/}
         <LogoSimple color={theme.palette.text.secondary} />
-        {/*<div>*/}
-        {/*  INGENIOUS*/}
-        {/*  <br />*/}
-        {/*  VISION*/}
-        {/*</div>*/}
       </TopLeft>
       {/*<BottomLeft>*/}
       {/*  <a href="mailto:minguoqiang88@gmail.com" rel="noreferrer">*/}
@@ -191,20 +176,22 @@ export default function Overlay() {
         </a>
       </BottomRight>
       {/*<LeftMiddle color={theme.palette.text.secondary}>A Personal Portfolio</LeftMiddle>*/}
-      <TopRight color={theme.palette.text.secondary} backgroundColor={theme.palette.text.secondary}>
+      <TopRight color={theme.palette.text.secondary} bgcolor={theme.palette.text.secondary}>
         <nav className="header__nav">
           <ul className="nav__list">
-            {Object.keys(state.navs).map((keyName, index) =>
-              state.navs[keyName].display ? (
-                <li className="nav__item">
-                  <a href={'#' + keyName} className="nav__link">
-                    {keyName}
-                  </a>
-                </li>
-              ) : (
-                <></>
-              )
-            )}
+            {Object.keys(state.navs).map((keyName, index) => (
+              <Fragment key={index}>
+                {state.navs[keyName].display ? (
+                  <li className="nav__item">
+                    <a href={'#' + keyName} className="nav__link">
+                      {keyName}
+                    </a>
+                  </li>
+                ) : (
+                  <></>
+                )}
+              </Fragment>
+            ))}
           </ul>
         </nav>
       </TopRight>

@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Html, Loader, Scroll, ScrollControls } from '@react-three/drei'
+import { Loader, Scroll, ScrollControls } from '@react-three/drei'
 import state from './store/state'
 import { WaterEffects } from './components/WaterEffects'
 import { useTheme } from './hooks/useTheme'
