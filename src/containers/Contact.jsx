@@ -2,10 +2,12 @@ import { useThree } from '@react-three/fiber'
 import { Box } from '@react-three/flex'
 import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
 import { FadingImage } from '../components/FadingImage'
 import { Html } from '@react-three/drei'
+import { RoundedRect } from '../components/RoundedRect'
+import styled from 'styled-components'
 
 const contactData = {
   tag: '03',
@@ -27,24 +29,180 @@ const contactData = {
   ],
 }
 
+const FormWrapper = styled.div`
+  padding: 5px;
+`
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const Input = styled.input`
+  padding: 10px;
+  margin: 5px;
+  border: 0.5px solid var(--input-color);
+  border-radius: 0;
+  width: 300px;
+  font-size: 0.9em;
+  color: var(--input-color);
+  //background-color: var(--input-background-color);
+  background: transparent;
+  outline: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 200;
+
+  &::placeholder {
+    color: var(--input-placeholder-color);
+    font-size: 0.9em;
+    font-weight: 200;
+  }
+`
+
+const TextArea = styled.textarea`
+  padding: 10px;
+  margin: 5px;
+  border: 0.5px solid var(--input-color);
+  border-radius: 0;
+  width: 300px;
+  height: 150px;
+  font-size: 0.9em;
+  color: var(--input-color);
+  //background-color: var(--input-background-color);
+  background: transparent;
+  outline: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 200;
+
+  &::placeholder {
+    color: var(--input-placeholder-color);
+    font-size: 0.75rem;
+    font-weight: 200;
+  }
+`
+
+const Button = styled.button`
+  background-color: var(--button-background-color);
+  color: var(--button-color);
+  border: none;
+  padding: 7px 35px;
+  margin: 10px 0 0;
+  border-radius: 0;
+  font-size: 0.9em;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 200;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--button-hover-background-color);
+    color: var(--button-hover-color);
+  }
+`
+
+const Description = styled.p`
+  font-size: 1.1em;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 200;
+  color: var(--description-color);
+  margin: 0 0 8px 0;
+`
+
 export function ContactForm({ width, height }) {
+  const theme = useTheme()
+  const { gl } = useThree()
+
+  const nameRef = useRef(null)
+  const emailRef = useRef(null)
+  const messageRef = useRef(null)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const formData = {
+      name: nameRef.current.value,
+      email: emailRef.current.value,
+      message: messageRef.current.value,
+    }
+    // onSubmit(formData);
+  }
+
   return (
-    <mesh>
-      <planeGeometry args={[width, height]} />
-      <Html
-        style={{
-          transition: 'all 0.2s',
-          opacity: 1,
-        }}
-        transform>
-        <div style={{ color: '#000', maxHeight: '300px', overflow: 'hidden' }}>
-          <span style={{ color: '#000' }}>Size</span>
-          <span style={{ color: '#000' }}>Size</span>
-          <span style={{ color: '#000' }}>Size</span>
-          <span style={{ color: '#000' }}>Size</span>
-        </div>
+    // <mesh>
+    //   <planeGeometry args={[width, height]} />
+    //   <Html
+    //     style={{
+    //       transition: 'all 0.2s',
+    //       opacity: 1,
+    //     }}
+    //     transform>
+    //     <div style={{ color: '#000', maxHeight: '300px', overflow: 'hidden' }}>
+    //       <span style={{ color: '#000' }}>Size</span>
+    //       <span style={{ color: '#000' }}>Size</span>
+    //       <span style={{ color: '#000' }}>Size</span>
+    //       <span style={{ color: '#000' }}>Size</span>
+    //     </div>
+    //   </Html>
+    // </mesh>
+    <group>
+      <mesh>
+        {/*<planeGeometry args={[width, height]} />*/}
+        <shapeGeometry args={[RoundedRect(width, height, 0.15)]} />
+        <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card} linear={true} toneMapped={false} />
+      </mesh>
+      <Html transform portal={{ current: gl.domElement.parentNode }}>
+        <FormWrapper>
+          {/*<Description*/}
+          {/*  style={{*/}
+          {/*    '--description-color': theme.palette.text.secondary,*/}
+          {/*  }}>*/}
+          {/*  Feel free to get in touch,*/}
+          {/*  <br />*/}
+          {/*  even if it's to ask a simple question.*/}
+          {/*</Description>*/}
+          <Form onSubmit={handleSubmit}>
+            <Input
+              type="text"
+              id="name"
+              placeholder="Name"
+              ref={nameRef}
+              style={{
+                '--input-color': theme.palette.text.secondary,
+                '--input-placeholder-color': theme.palette.text.disabled,
+              }}
+            />
+            <Input
+              type="email"
+              id="email"
+              placeholder="Email"
+              ref={emailRef}
+              style={{
+                '--input-color': theme.palette.text.secondary,
+                '--input-placeholder-color': theme.palette.text.disabled,
+              }}
+            />
+            <TextArea
+              ref={messageRef}
+              placeholder="Message"
+              style={{
+                '--input-color': theme.palette.text.secondary,
+                '--input-placeholder-color': theme.palette.text.disabled,
+              }}
+            />
+            <Button
+              type="submit"
+              id="message"
+              style={{
+                '--button-background-color': theme.palette.text.secondary,
+                '--button-color': theme.palette.background.default,
+                '--button-hover-background-color': theme.palette.text.primary,
+                '--button-hover-color': theme.palette.background.default,
+              }}>
+              Send
+            </Button>
+          </Form>
+        </FormWrapper>
       </Html>
-    </mesh>
+    </group>
   )
 }
 
@@ -59,9 +217,9 @@ export function Contact({ onReflow }) {
     marginRight: 0,
     width: 'auto',
     height: 'auto',
-    minWidth: 3,
+    minWidth: 7.07,
     minHeight: 9.25,
-    maxWidth: 6,
+    maxWidth: 11.43,
     maxHeight: 11.43,
   }
   const scale = Math.min(1, viewport.width / 16)
@@ -85,7 +243,7 @@ export function Contact({ onReflow }) {
       <Box marginLeft={1.5} marginRight={1.5} marginTop={0.25}>
         <Text
           position-z={0.5}
-          fontSize={scale * 0.618}
+          fontSize={scale * 0.518}
           lineHeight={1}
           letterSpacing={-0.05}
           color={theme.palette.text.neutral}

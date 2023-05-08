@@ -1,31 +1,33 @@
 import styled from 'styled-components'
-import { LogoFull } from './Logo'
+import { LogoSimple } from './Logo'
 import { useTheme } from '../hooks/useTheme'
 import { IconLinkedIn } from './icons/LinkedIn'
 import { IconGithub } from './icons/Github'
-import { IconWhatsApp } from './icons/WhatsApp'
-import { IconMail } from './icons/Mail'
+import state from '../store/state'
+import React from 'react'
+// import { IconWhatsApp } from './icons/WhatsApp'
+// import { IconMail } from './icons/Mail'
 
 const TopLeft = styled.div`
   position: absolute;
   top: calc(1.5vw - 10px);
   left: 1.5vw;
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: min(10vw, 3em);
+  font-family: LEMON MILK, sans-serif;
+  font-weight: 300;
+  font-size: min(10vw, 1.25em);
   line-height: 0.9em;
 `
 
-const BottomLeft = styled.div`
-  position: absolute;
-  bottom: 1.5vw;
-  left: 1.5vw;
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
-  font-size: min(15vw, 4em);
-  line-height: 0.7em;
-  color: ${(props) => props.color || '#fff'};
-`
+// const BottomLeft = styled.div`
+//   position: absolute;
+//   bottom: 1.5vw;
+//   left: 1.5vw;
+//   font-family: 'Playfair Display', serif;
+//   font-weight: 900;
+//   font-size: min(15vw, 4em);
+//   line-height: 0.7em;
+//   color: ${(props) => props.color || '#fff'};
+// `
 
 const BottomRight = styled.div`
   position: absolute;
@@ -40,19 +42,19 @@ const BottomRight = styled.div`
   color: ${(props) => props.color || '#fff'};
 `
 
-const LeftMiddle = styled.div`
-  position: absolute;
-  bottom: 50%;
-  right: 1.5vw;
-  font-family: 'Inter';
-  font-weight: 400;
-  line-height: 1em;
-  letter-spacing: -0.01em;
-  font-size: 12px;
-  transform: rotate(90deg) translate3d(50%, 0, 0);
-  transform-origin: 100% 50%;
-  color: ${(props) => props.color || '#fff'};
-`
+// const LeftMiddle = styled.div`
+//   position: absolute;
+//   bottom: 50%;
+//   right: 1.5vw;
+//   font-family: 'Inter';
+//   font-weight: 400;
+//   line-height: 1em;
+//   letter-spacing: -0.01em;
+//   font-size: 12px;
+//   transform: rotate(90deg) translate3d(50%, 0, 0);
+//   transform-origin: 100% 50%;
+//   color: ${(props) => props.color || '#fff'};
+// `
 
 // const Bar = styled.div`
 //   position: absolute;
@@ -80,6 +82,7 @@ const LeftMiddle = styled.div`
 
 const TopRight = styled.div`
   font-family: 'Roboto';
+  font-weight: 300;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -121,6 +124,7 @@ const TopRight = styled.div`
       & > .nav__link {
         color: ${(props) => props.color || '#fff'};
         text-decoration: none;
+        text-transform: uppercase;
         background-color: transparent;
         position: relative;
         display: inline-block;
@@ -162,49 +166,45 @@ export default function Overlay() {
   return (
     <>
       <TopLeft>
-        {/*<i>Ingenious Vision</i>*/}
-        <LogoFull color={theme.palette.text.secondary} />
+        {/*<LogoFull color={theme.palette.text.secondary} />*/}
+        <LogoSimple color={theme.palette.text.secondary} />
+        {/*<div>*/}
+        {/*  INGENIOUS*/}
+        {/*  <br />*/}
+        {/*  VISION*/}
+        {/*</div>*/}
       </TopLeft>
-      <BottomLeft>
+      {/*<BottomLeft>*/}
+      {/*  <a href="mailto:minguoqiang88@gmail.com" rel="noreferrer">*/}
+      {/*    <IconMail width={30} height={30} color={theme.palette.text.secondary} />*/}
+      {/*  </a>*/}
+      {/*  <a target="_blank" href="https://wa.me/89684412430" rel="noreferrer" style={{ marginLeft: '10px' }}>*/}
+      {/*    <IconWhatsApp width={30} height={30} color={theme.palette.text.secondary} />*/}
+      {/*  </a>*/}
+      {/*</BottomLeft>*/}
+      <BottomRight>
         <a target="_blank" href="https://www.linkedin.com/in/guoqiang-min" rel="noreferrer">
-          <IconLinkedIn width={32} height={32} color={theme.palette.text.secondary} />
+          <IconLinkedIn width={30} height={30} color={theme.palette.text.secondary} />
         </a>
         <a target="_blank" href="https://github.com/guoqiangmin" rel="noreferrer" style={{ marginLeft: '10px' }}>
-          <IconGithub width={32} height={32} color={theme.palette.text.secondary} />
-        </a>
-      </BottomLeft>
-      <BottomRight>
-        <a href="mailto:minguoqiang88@gmail.com" rel="noreferrer">
-          <IconMail width={32} height={32} color={theme.palette.text.secondary} />
-        </a>
-        <a target="_blank" href="https://wa.me/89684412430" rel="noreferrer" style={{ marginLeft: '10px' }}>
-          <IconWhatsApp width={32} height={32} color={theme.palette.text.secondary} />
+          <IconGithub width={30} height={30} color={theme.palette.text.secondary} />
         </a>
       </BottomRight>
-      <LeftMiddle color={theme.palette.text.secondary}>A Personal Portfolio</LeftMiddle>
+      {/*<LeftMiddle color={theme.palette.text.secondary}>A Personal Portfolio</LeftMiddle>*/}
       <TopRight color={theme.palette.text.secondary} backgroundColor={theme.palette.text.secondary}>
         <nav className="header__nav">
           <ul className="nav__list">
-            <li className="nav__item">
-              <a href="#work" className="nav__link">
-                WORK
-              </a>
-            </li>
-            <li className="nav__item">
-              <a href="#work" className="nav__link">
-                ABOUT
-              </a>
-            </li>
-            <li className="nav__item">
-              <a href="#work" className="nav__link">
-                EXPERTISE
-              </a>
-            </li>
-            <li className="nav__item">
-              <a href="#work" className="nav__link">
-                CONTACT
-              </a>
-            </li>
+            {Object.keys(state.navs).map((keyName, index) =>
+              state.navs[keyName].display ? (
+                <li className="nav__item">
+                  <a href={'#' + keyName} className="nav__link">
+                    {keyName}
+                  </a>
+                </li>
+              ) : (
+                <></>
+              )
+            )}
           </ul>
         </nav>
       </TopRight>

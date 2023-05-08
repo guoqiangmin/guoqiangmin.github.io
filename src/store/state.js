@@ -1,80 +1,42 @@
+// import { proxy } from 'valtio'
+
+// export const state = proxy({
+//   clicked: 0,
+//   hovered: null
+// })
+
 const state = {
   top: 0,
-  pages: 0,
-  threshold: 5.5,
+  pages: 9,
+  sections: 10,
+  threshold: 4,
   mouse: [0, 0],
-  content: [
-    {
-      tag: '01',
-      text: `Portfolio`,
-      // images: ['/images/BH41NVu.jpg', '/images/fBoIJLX.jpg', '/images/04zTfWB.jpg'],
-      images: [
-        {
-          front: '/images/BH41NVu.jpg',
-          back: '/images/BH41NVu.jpg',
-        },
-        {
-          front: '/images/fBoIJLX.jpg',
-          back: '/images/fBoIJLX.jpg',
-        },
-        {
-          front: '/images/04zTfWB.jpg',
-          back: '/images/04zTfWB.jpg',
-        },
-      ],
+  navs: {
+    home: {
+      pageSize: 5.2,
+      display: true,
     },
-    {
-      tag: '02',
-      text: `About Me`,
-      // images: ['/images/c4cA8UN.jpg', '/images/ajQ73ol.jpg', '/images/gZOmLNU.jpg']
-      images: [
-        {
-          front: '/images/c4cA8UN.jpg',
-          back: '/images/c4cA8UN.jpg',
-        },
-        {
-          front: '/images/ajQ73ol.jpg',
-          back: '/images/ajQ73ol.jpg',
-        },
-        {
-          front: '/images/gZOmLNU.jpg',
-          back: '/images/gZOmLNU.jpg',
-        },
-      ],
+    work: {
+      pageSize: 0.96,
+      display: true,
     },
-  ],
-  depthbox: [
-    {
-      depth: 0,
-      color: '#cccccc',
-      textColor: '#ffffff',
-      text: 'In the vast expanse\nof possibilities,\ninnovation knows\nno bounds.\nThe journey of\ndigital transformation\nnever stops...',
-      image: '/images/cAKwexj.jpg',
+    about: {
+      pageSize: 0.96,
+      display: true,
     },
-    {
-      depth: -5,
-      textColor: '#272727',
-      text: 'Explore limitless possibilities\nfor digital transformation\nin IT with ignited\ninnovative vision.\nUnleash the power\nof the future today.',
-      // text: 'Discover how ingenious\nvision and innovative\ntechnologies are\nrevolutionizing the IT\nindustry,\ndriving growth, and\ncreating new\nopportunities.',
-      image: '/images/04zTfWB.jpg',
+    expertise: {
+      pageSize: 0.96,
+      display: true,
     },
-  ],
-  lines: [
-    {
-      points: [
-        [-20, 0, 0],
-        [-9, 0, 0],
-      ],
-      lineWidth: 0.5,
+    divider: {
+      pageSize: 1,
+      display: false,
     },
-    {
-      points: [
-        [20, 0, 0],
-        [9, 0, 0],
-      ],
-      lineWidth: 0.5,
+    contact: {
+      pageSize: 0.95,
+      display: true,
     },
-  ],
+  },
 }
 
 export default state

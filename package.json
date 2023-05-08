@@ -7,16 +7,17 @@
     "@react-three/drei": "latest",
     "@react-three/fiber": "latest",
     "@react-three/flex": "latest",
-    "@splinetool/loader": "^0.9.321",
-    "@splinetool/r3f-spline": "^1.0.2",
+    "@splinetool/loader": "latest",
+    "@splinetool/r3f-spline": "latest",
     "framer-motion": "latest",
-    "leva": "^0.9.34",
+    "leva": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "latest",
     "styled-components": "latest",
     "three": "latest",
-    "three-stdlib": "latest"
+    "three-stdlib": "latest",
+    "valtio": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

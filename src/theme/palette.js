@@ -63,9 +63,9 @@ export default function palette(themeMode) {
       primary: GREY[800],
       secondary: GREY[700],
       neutral: alpha(GREY[500], 0.16),
-      disabled: alpha(INFO.main, 0.4),
+      disabled: alpha(GREY[700], 0.5),
     },
-    background: { paper: GREY[0], default: GREY[100], neutral: GREY[300] },
+    background: { paper: GREY[0], default: GREY[100], neutral: GREY[300], card: GREY[100] },
     action: {
       ...COMMON.action,
       active: INFO.main,
@@ -85,6 +85,7 @@ export default function palette(themeMode) {
       paper: GREY[800],
       default: GREY[900],
       neutral: alpha(GREY[500], 0.16),
+      card: 'black',
     },
     action: {
       ...COMMON.action,

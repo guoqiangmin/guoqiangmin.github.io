@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Loader, Scroll, ScrollControls } from '@react-three/drei'
+import { Html, Loader, Scroll, ScrollControls } from '@react-three/drei'
 import state from './store/state'
 import { WaterEffects } from './components/WaterEffects'
 import { useTheme } from './hooks/useTheme'
@@ -16,7 +16,7 @@ export default function App() {
   const onScroll = (e) => (state.top = e.target ? e.target.scrollTop : 0)
   useEffect(() => void onScroll({ target: scrollArea.current }), [])
   const [pages, setPages] = useState(0)
-
+  console.log('pages:', pages)
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     const systemModeHandler = (event) => {
@@ -72,7 +72,10 @@ export default function App() {
                 ref={scrollArea}
                 onScroll={onScroll}
                 onPointerMove={(e) => (state.mouse = [(e.clientX / window.innerWidth) * 2 - 1, (e.clientY / window.innerHeight) * 2 - 1])}>
-                <div style={{ height: `${pages * 100}vh` }} />
+                {/*<div style={{ height: `${pages * 100}vh` }} />*/}
+                {Object.keys(state.navs).map((keyName, index) => (
+                  <div key={index} id={keyName} style={{ height: `${((state.navs[keyName].pageSize * pages) / state.sections) * 100}vh` }} />
+                ))}
               </div>
             </Scroll>
           </ScrollControls>

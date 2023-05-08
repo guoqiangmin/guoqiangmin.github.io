@@ -59,7 +59,7 @@ export function About({ onReflow }) {
       <Box marginLeft={1.5} marginRight={1.5} marginTop={0.25}>
         <Text
           position-z={0.5}
-          fontSize={scale * 0.618}
+          fontSize={scale * 0.518}
           lineHeight={1}
           letterSpacing={-0.05}
           color={theme.palette.text.neutral}
