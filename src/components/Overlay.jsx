@@ -27,7 +27,7 @@ const BottomLeft = styled.div`
   // color: ${(props) => props.color || '#fff'};
   & .header__arrow {
     display: block;
-    height: 5.2rem;
+    height: 4.2rem;
     margin-top: 0rem;
     //position: absolute;
     //right: 0;
@@ -38,7 +38,7 @@ const BottomLeft = styled.div`
 
   & .header__arrow__dash {
     border-right: 1px solid #f2f2f2;
-    height: 5rem;
+    height: 4rem;
     left: 50%;
     position: absolute;
     top: 0;
@@ -49,14 +49,13 @@ const BottomLeft = styled.div`
     border-color: #f2f2f2;
     border-style: solid;
     border-width: 1px 1px 0 0;
-    bottom: 1.845rem;
-    height: 1.2rem;
+    bottom: 1.25rem;
+    height: 0.75rem;
     left: 50%;
-    margin-left: -0.35px;
     position: absolute;
     transform: rotate(135deg);
     transform-origin: 0px 100%;
-    width: 1.2rem;
+    width: 0.75rem;
   }
 `
 
