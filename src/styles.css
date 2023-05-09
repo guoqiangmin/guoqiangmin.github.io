@@ -31,36 +31,47 @@ body {
 }
 
 .loading {
-  position: absolute;
+  position: fixed;
   top: 0px;
   left: 0px;
   width: 100%;
   height: 100%;
-  background: #171717;
+  background: #121212;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  transition: opacity 2s;
+  z-index: 99999;
+}
+
+.loading.loaded {
+  opacity: 0;
+}
+
+.loading.hidden {
+  display: none;
 }
 
 .loading-bar-container {
-  width: 100px;
-  height: 3px;
+  width: 200px;
+  height: 5px;
   background: #272727;
 }
 
 .loading-bar {
-  height: 3px;
+  height: 5px;
   background: white;
+  border-radius: 10px;
 }
 
 .loading-data {
-  display: inline-block;
+  display: block;
+  font-family: 'Roboto';
   position: relative;
-  font-variant-numeric: tabular-nums;
-  margin-top: 0.8em;
   color: #f0f0f0;
-  font-size: 0.6em;
+  font-size: 5em;
+  font-weight: 700;
 }
 
 .main-cursor,
@@ -72,8 +83,8 @@ body {
 }
 
 .main-cursor {
-  transition: opacity 1s cubic-bezier(0.77, 0, 0.175, 1);
-  animation: fadeIn 1s cubic-bezier(0.77, 0, 0.175, 1) 0s forwards;
+  /*transition: opacity 1s cubic-bezier(0.77, 0, 0.175, 1);*/
+  /*animation: fadeIn 1s cubic-bezier(0.77, 0, 0.175, 1) 0s forwards;*/
   mix-blend-mode: difference;
 }
 
@@ -227,5 +238,18 @@ body {
 
   to {
     transform: translate(0px, -50%);
+  }
+}
+
+/* Bouncing Animation */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }

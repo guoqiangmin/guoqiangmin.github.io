@@ -2,9 +2,9 @@ import { useThree } from '@react-three/fiber'
 import { Box } from '@react-three/flex'
 import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
-import { Html } from '@react-three/drei'
+import { Html, useProgress } from '@react-three/drei'
 import { RoundedRect } from '../components/RoundedRect'
 import styled from 'styled-components'
 
@@ -30,6 +30,10 @@ const contactData = {
 
 const FormWrapper = styled.div`
   padding: 5px;
+  display: none;
+  &.show {
+    display: block;
+  }
 `
 
 const Form = styled.form`
@@ -109,11 +113,23 @@ const Button = styled.button`
 
 export function ContactForm({ width, height }) {
   const theme = useTheme()
+  const { progress } = useProgress()
   const { gl } = useThree()
 
   const nameRef = useRef(null)
   const emailRef = useRef(null)
   const messageRef = useRef(null)
+
+  const [show, setShow] = useState('')
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (progress >= 100) setShow('show')
+    }, 2000)
+    return () => {
+      clearTimeout(t)
+    }
+  }, [progress])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -134,7 +150,7 @@ export function ContactForm({ width, height }) {
         <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card} linear={true} toneMapped={false} />
       </mesh>
       <Html transform portal={{ current: gl.domElement.parentNode }}>
-        <FormWrapper>
+        <FormWrapper className={`${show}`}>
           {/*<Description*/}
           {/*  style={{*/}
           {/*    '--description-color': theme.palette.text.secondary,*/}

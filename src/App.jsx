@@ -1,12 +1,13 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Loader, Scroll, ScrollControls } from '@react-three/drei'
+import { Scroll, ScrollControls } from '@react-three/drei'
 import state from './store/state'
 import { WaterEffects } from './components/WaterEffects'
 import { useTheme } from './hooks/useTheme'
 import { Content } from './components/Content'
 import { useThemeSetting } from './contexts/theme'
-import CustomCursor from './components/CustomCursor'
+import { CustomCursor } from './components/CustomCursor'
+import { LoadingScreen } from './components/LoadingScreen'
 
 export default function App() {
   const theme = useTheme()
@@ -39,6 +40,7 @@ export default function App() {
 
   return (
     <>
+      {/*<Suspense fallback={null}>*/}
       <CustomCursor />
       <Canvas
         shadows
@@ -82,7 +84,9 @@ export default function App() {
         </Suspense>
         <WaterEffects />
       </Canvas>
-      <Loader />
+      {/*</Suspense>*/}
+      {/*<Loader />*/}
+      <LoadingScreen />
     </>
   )
 }

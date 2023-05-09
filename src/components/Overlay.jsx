@@ -5,6 +5,16 @@ import { IconLinkedIn } from './icons/LinkedIn'
 import { IconGithub } from './icons/Github'
 import state from '../store/state'
 import React, { Fragment } from 'react'
+import { useProgress } from '@react-three/drei'
+
+const OverlayContainer = styled.div`
+  transition: opacity 2s;
+  opacity: 0;
+
+  &.loaded {
+    opacity: 1;
+  }
+`
 
 const TopLeft = styled.div`
   position: absolute;
@@ -27,35 +37,36 @@ const BottomLeft = styled.div`
   // color: ${(props) => props.color || '#fff'};
   & .header__arrow {
     display: block;
-    height: 4.2rem;
+    height: 2.2rem;
     margin-top: 0rem;
     //position: absolute;
     //right: 0;
     //top: 100%;
     width: 1.7rem;
     transform: translate(0px, 0px);
-  }
+    animation: bounce 1.5s infinite;
 
-  & .header__arrow__dash {
-    border-right: 1px solid #f2f2f2;
-    height: 4rem;
-    left: 50%;
-    position: absolute;
-    top: 0;
-    transform: translate(-50%, 0);
-  }
+    & .header__arrow__dash {
+      border-right: 1px solid #f2f2f2;
+      height: 2rem;
+      left: 50%;
+      position: absolute;
+      top: 0;
+      transform: translate(-50%, 0);
+    }
 
-  & .header__arrow__triangle {
-    border-color: #f2f2f2;
-    border-style: solid;
-    border-width: 1px 1px 0 0;
-    bottom: 1.25rem;
-    height: 0.75rem;
-    left: 50%;
-    position: absolute;
-    transform: rotate(135deg);
-    transform-origin: 0px 100%;
-    width: 0.75rem;
+    & .header__arrow__triangle {
+      border-color: #f2f2f2;
+      border-style: solid;
+      border-width: 1px 1px 0 0;
+      bottom: 1.25rem;
+      height: 0.75rem;
+      left: 50%;
+      position: absolute;
+      transform: rotate(135deg);
+      transform-origin: 0px 100%;
+      width: 0.75rem;
+    }
   }
 `
 
@@ -185,8 +196,10 @@ const TopRight = styled.div`
 
 export default function Overlay() {
   const theme = useTheme()
+  const { progress } = useProgress()
+
   return (
-    <>
+    <OverlayContainer className={`${progress < 100 ? '' : 'loaded'}`}>
       <TopLeft>
         <LogoSimple color={theme.palette.text.secondary} />
       </TopLeft>
@@ -231,6 +244,6 @@ export default function Overlay() {
       {/*</Hamburger>*/}
       {/*<Bar />*/}
       {/*<Bar vertical />*/}
-    </>
+    </OverlayContainer>
   )
 }
