@@ -1,5 +1,4 @@
 import { useRef, useEffect } from 'react'
-// import "./style.scss"
 
 export const CustomCursor = () => {
   // const { type } = useContext(CustomCursorContext);

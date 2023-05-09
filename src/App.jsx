@@ -23,7 +23,6 @@ export default function App() {
     const systemModeHandler = (event) => {
       const colorScheme = event.matches ? 'dark' : 'light'
       console.log(colorScheme) // "dark" or "light"
-      // setMode(colorScheme);
       applyTheme(colorScheme)
     }
 
@@ -40,7 +39,6 @@ export default function App() {
 
   return (
     <>
-      {/*<Suspense fallback={null}>*/}
       <CustomCursor />
       <Canvas
         shadows
@@ -84,8 +82,6 @@ export default function App() {
         </Suspense>
         <WaterEffects />
       </Canvas>
-      {/*</Suspense>*/}
-      {/*<Loader />*/}
       <LoadingScreen />
     </>
   )

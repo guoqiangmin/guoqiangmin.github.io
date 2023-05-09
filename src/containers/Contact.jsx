@@ -50,7 +50,6 @@ const Input = styled.input`
   width: 300px;
   font-size: 0.9em;
   color: var(--input-color);
-  //background-color: var(--input-background-color);
   background: transparent;
   outline: none;
   font-family: 'Roboto', sans-serif;
@@ -72,7 +71,6 @@ const TextArea = styled.textarea`
   height: 150px;
   font-size: 0.9em;
   color: var(--input-color);
-  //background-color: var(--input-background-color);
   background: transparent;
   outline: none;
   font-family: 'Roboto', sans-serif;
@@ -102,14 +100,6 @@ const Button = styled.button`
     color: var(--button-hover-color);
   }
 `
-
-// const Description = styled.p`
-//   font-size: 1.1em;
-//   font-family: 'Roboto', sans-serif;
-//   font-weight: 200;
-//   color: var(--description-color);
-//   margin: 0 0 8px 0;
-// `
 
 export function ContactForm({ width, height }) {
   const theme = useTheme()
@@ -145,20 +135,11 @@ export function ContactForm({ width, height }) {
   return (
     <group>
       <mesh>
-        {/*<planeGeometry args={[width, height]} />*/}
         <shapeGeometry args={[RoundedRect(width, height, 0.15)]} />
         <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card} linear={true} toneMapped={false} />
       </mesh>
       <Html transform portal={{ current: gl.domElement.parentNode }}>
         <FormWrapper className={`${show}`}>
-          {/*<Description*/}
-          {/*  style={{*/}
-          {/*    '--description-color': theme.palette.text.secondary,*/}
-          {/*  }}>*/}
-          {/*  Feel free to get in touch,*/}
-          {/*  <br />*/}
-          {/*  even if it's to ask a simple question.*/}
-          {/*</Description>*/}
           <Form onSubmit={handleSubmit}>
             <Input
               type="text"

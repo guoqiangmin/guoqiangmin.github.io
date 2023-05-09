@@ -30,42 +30,49 @@ const BottomLeft = styled.div`
   position: absolute;
   bottom: 1.5vw;
   left: 1.5vw;
-  // font-family: 'Playfair Display', serif;
-  // font-weight: 900;
-  // font-size: min(15vw, 4em);
-  // line-height: 0.7em;
-  // color: ${(props) => props.color || '#fff'};
   & .header__arrow {
     display: block;
-    height: 2.2rem;
+    //height: 2.7rem;
+    height: 8.7rem;
     margin-top: 0rem;
-    //position: absolute;
-    //right: 0;
-    //top: 100%;
     width: 1.7rem;
     transform: translate(0px, 0px);
     animation: bounce 1.5s infinite;
 
+    & .header__arrow__text {
+      color: ${(props) => props.color || '#fff'};
+      writing-mode: tb-rl;
+      //transform: rotate(90deg);
+      white-space: nowrap;
+      display: block;
+      bottom: 0;
+      margin-left: 0.35rem;
+      font-family: 'Roboto';
+      font-weight: 300;
+    }
+    }
+
     & .header__arrow__dash {
-      border-right: 1px solid #f2f2f2;
-      height: 2rem;
+      border-right: 2px solid ${(props) => props.color || '#fff'};
+      height: 2.5rem;
       left: 50%;
       position: absolute;
-      top: 0;
+      //top: 0;
+      top: 6rem;
       transform: translate(-50%, 0);
     }
 
     & .header__arrow__triangle {
-      border-color: #f2f2f2;
+      border-color: ${(props) => props.color || '#fff'};
       border-style: solid;
-      border-width: 1px 1px 0 0;
-      bottom: 1.25rem;
-      height: 0.75rem;
+      border-width: 2px 2px 0 0;
+      bottom: 1rem;
+      height: 0.5rem;
       left: 50%;
       position: absolute;
       transform: rotate(135deg);
       transform-origin: 0px 100%;
-      width: 0.75rem;
+      width: 0.5rem;
     }
   }
 `
@@ -82,29 +89,6 @@ const BottomRight = styled.div`
   //text-align: right;
   color: ${(props) => props.color || '#fff'};
 `
-
-// const LeftMiddle = styled.div`
-//   position: absolute;
-//   bottom: 50%;
-//   right: 1.5vw;
-//   font-family: 'Inter';
-//   font-weight: 400;
-//   line-height: 1em;
-//   letter-spacing: -0.01em;
-//   font-size: 12px;
-//   transform: rotate(90deg) translate3d(50%, 0, 0);
-//   transform-origin: 100% 50%;
-//   color: ${(props) => props.color || '#fff'};
-// `
-
-// const Bar = styled.div`
-//   position: absolute;
-//   top: ${(props) => (props.vertical ? '0px' : '50%')};
-//   left: ${(props) => (props.vertical ? '50%' : '0px')};
-//   width: ${(props) => (props.vertical ? '2px' : '150px')};
-//   height: ${(props) => (props.vertical ? '150px' : '2px')};
-//   background: #252525;
-// `
 
 // const Hamburger = styled.div`
 //   position: absolute;
@@ -203,8 +187,9 @@ export default function Overlay() {
       <TopLeft>
         <LogoSimple color={theme.palette.text.secondary} />
       </TopLeft>
-      <BottomLeft>
+      <BottomLeft color={theme.palette.text.secondary}>
         <div className="header__arrow">
+          <div className="header__arrow__text">scroll down</div>
           <div className="header__arrow__dash"></div>
           <div className="header__arrow__triangle"></div>
         </div>
@@ -217,7 +202,6 @@ export default function Overlay() {
           <IconGithub width={30} height={30} color={theme.palette.text.secondary} />
         </a>
       </BottomRight>
-      {/*<LeftMiddle color={theme.palette.text.secondary}>A Personal Portfolio</LeftMiddle>*/}
       <TopRight color={theme.palette.text.secondary} bgcolor={theme.palette.text.secondary}>
         <nav className="header__nav">
           <ul className="nav__list">
@@ -242,8 +226,6 @@ export default function Overlay() {
       {/*  <div />*/}
       {/*  <div />*/}
       {/*</Hamburger>*/}
-      {/*<Bar />*/}
-      {/*<Bar vertical />*/}
     </OverlayContainer>
   )
 }
