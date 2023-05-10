@@ -25,6 +25,22 @@ const portfolioData = {
     },
   ],
 }
+
+export function SlideControl({ width, height }) {
+  const theme = useTheme()
+  // const { progress } = useProgress()
+  // const { gl } = useThree()
+
+  return (
+    <group>
+      <mesh>
+        <planeGeometry args={[width, height]} />
+        <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.secondary} linear={true} toneMapped={false} />
+      </mesh>
+    </group>
+  )
+}
+
 export function Portfolio({ onReflow }) {
   const theme = useTheme()
   const { viewport } = useThree()
@@ -75,9 +91,7 @@ export function Portfolio({ onReflow }) {
         <Box {...{ ...boxProps, minWidth: 11.43, maxWidth: 13.5 }}>
           {(width, height) => <SliderImage image={portfolioData.images[currentIndex]} width={width} height={height} />}
         </Box>
-        <Box {...{ ...boxProps, minWidth: 7.07, maxWidth: 8.2 }}>
-          {(width, height) => <SliderImage image={portfolioData.images[currentIndex]} width={width} height={height} />}
-        </Box>
+        <Box {...{ ...boxProps, minWidth: 7.07, maxWidth: 8.2 }}>{(width, height) => <SlideControl width={width} height={height} />}</Box>
       </Box>
     </Box>
   )

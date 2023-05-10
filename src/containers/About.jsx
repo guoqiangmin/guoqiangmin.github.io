@@ -22,6 +22,21 @@ const aboutData = {
   ],
 }
 
+export function Career({ width, height }) {
+  const theme = useTheme()
+  // const { progress } = useProgress()
+  // const { gl } = useThree()
+
+  return (
+    <group>
+      <mesh>
+        <planeGeometry args={[width, height]} />
+        <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.primary} linear={true} toneMapped={false} />
+      </mesh>
+    </group>
+  )
+}
+
 export function About({ onReflow }) {
   const theme = useTheme()
   const { viewport } = useThree()
@@ -71,9 +86,7 @@ export function About({ onReflow }) {
         <Box {...{ ...boxProps, minWidth: 6, maxWidth: 7.07 }}>
           {(width, height) => <FadingImage image={aboutData.images[0]} width={width} height={height} />}
         </Box>
-        <Box {...{ ...boxProps, minWidth: 7.07, maxWidth: 11.43 }}>
-          {(width, height) => <FadingImage image={aboutData.images[1]} width={width} height={height} />}
-        </Box>
+        <Box {...{ ...boxProps, minWidth: 7.07, maxWidth: 11.43 }}>{(width, height) => <Career width={width} height={height} />}</Box>
       </Box>
     </Box>
   )

@@ -5,7 +5,7 @@ import Text from '../components/Text'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
 import { Html, useProgress } from '@react-three/drei'
-import { RoundedRect } from '../components/RoundedRect'
+// import { RoundedRect } from '../components/RoundedRect'
 import styled from 'styled-components'
 
 const contactData = {
@@ -135,8 +135,9 @@ export function ContactForm({ width, height }) {
   return (
     <group>
       <mesh>
-        <shapeGeometry args={[RoundedRect(width, height, 0.15)]} />
-        <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card} linear={true} toneMapped={false} />
+        {/*<shapeGeometry args={[RoundedRect(width, height, 0.15)]} />*/}
+        <planeGeometry args={[width, height]} />
+        <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.primary} linear={true} toneMapped={false} />
       </mesh>
       <Html transform portal={{ current: gl.domElement.parentNode }}>
         <FormWrapper className={`${show}`}>

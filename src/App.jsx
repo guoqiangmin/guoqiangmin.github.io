@@ -60,7 +60,7 @@ export default function App() {
           shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}
         />
-        <fog attach="fog" args={['#202025', 0, 80]} />
+        {/*<fog attach="fog" args={['#202025', 0, 80]} />*/}
         <Suspense fallback={null}>
           <ScrollControls>
             <Scroll>

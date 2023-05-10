@@ -4,12 +4,15 @@ import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
 import React from 'react'
 import { useTheme } from '../hooks/useTheme'
-import { FadingImage } from '../components/FadingImage'
+// import { FadingImage } from '../components/FadingImage'
+// import { RoundedRect } from '../components/RoundedRect'
+// import { TrackballControls, useProgress } from '@react-three/drei'
+import { Cloud } from '../components/WordCloud'
 
 const skillsData = {
   tag: '02',
   text: `Expertise`,
-  description: 'A Comprehensive Overview of My Skills and Core Competencies',
+  description: 'A Comprehensive Overview of My Expertise and Core Competencies',
   images: [
     {
       front: '/images/c4cA8UN.jpg',
@@ -26,7 +29,42 @@ const skillsData = {
   ],
 }
 
-export function Skills({ onReflow }) {
+export function Keywords({ width, height }) {
+  const theme = useTheme()
+  // const { progress } = useProgress()
+  // const { gl } = useThree()
+
+  return (
+    <group>
+      <mesh>
+        {/*<shapeGeometry args={[RoundedRect(width, height, 0.15)]} />*/}
+        <planeGeometry args={[width, height]} />
+        <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.primary} linear={true} toneMapped={false} />
+      </mesh>
+      <group position={[0.6, 0.3, 0.3]}>
+        <Cloud count={8} radius={3} />
+      </group>
+      {/*<TrackballControls />*/}
+    </group>
+  )
+}
+
+export function Skills({ width, height }) {
+  const theme = useTheme()
+  // const { progress } = useProgress()
+  // const { gl } = useThree()
+
+  return (
+    <group>
+      <mesh>
+        <planeGeometry args={[width, height]} />
+        <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.secondary} linear={true} toneMapped={false} />
+      </mesh>
+    </group>
+  )
+}
+
+export function Expertise({ onReflow }) {
   const theme = useTheme()
   const { viewport } = useThree()
   const boxProps = {
@@ -72,12 +110,8 @@ export function Skills({ onReflow }) {
         </Text>
       </Box>
       <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
-        <Box {...{ ...boxProps, minWidth: 7.07, maxWidth: 11.43 }}>
-          {(width, height) => <FadingImage image={skillsData.images[0]} width={width} height={height} />}
-        </Box>
-        <Box {...{ ...boxProps, minWidth: 6, maxWidth: 7.07 }}>
-          {(width, height) => <FadingImage image={skillsData.images[1]} width={width} height={height} />}
-        </Box>
+        <Box {...{ ...boxProps, minWidth: 7.07, maxWidth: 11.43 }}>{(width, height) => <Keywords width={width} height={height} />}</Box>
+        <Box {...{ ...boxProps, minWidth: 6, maxWidth: 7.07 }}>{(width, height) => <Skills width={width} height={height} />}</Box>
       </Box>
     </Box>
   )

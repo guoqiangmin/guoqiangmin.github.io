@@ -8,7 +8,7 @@ import { Portfolio } from '../containers/Portfolio'
 import { About } from '../containers/About'
 import { Contact } from '../containers/Contact'
 import { Breakdown } from '../containers/Breakdown'
-import { Skills } from '../containers/Skills'
+import { Expertise } from '../containers/Expertise'
 
 export function Content({ onReflow }) {
   const group = useRef()
@@ -43,7 +43,7 @@ export function Content({ onReflow }) {
             state.threshold = Math.max(4, (4 / (15.8 * 3)) * sizesRef.current.reduce((acc, e) => acc + e, 0))
           }}
         />
-        <Skills
+        <Expertise
           onReflow={(w, h) => {
             sizesRef.current[1] = h
             state.threshold = Math.max(4, (4 / (15.8 * 3)) * sizesRef.current.reduce((acc, e) => acc + e, 0))
