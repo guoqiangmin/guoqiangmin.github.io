@@ -69,19 +69,25 @@ export const ImageWipeMaterial = shaderMaterial(
 
 extend({ ImageWipeMaterial })
 
-export function SliderImage({ image, width, height }) {
+export function SliderImage({ images, activeIndex, width, height }) {
   const ref = useRef()
-  const [texture1, texture2] = useTexture([image.front, '/img/Img2.jpg'])
+  const firstIdx = activeIndex % images.length
+  const nextIdx = (activeIndex + 1) % images.length
+
+  // const [texture1, texture2] = useTexture([images[firstIdx], images[nextIdx]])
+  const textures = useTexture(images)
   const [hovered, setHover] = useState(false)
-  useFrame(() => {
+  useFrame((state, delta) => {
     // ref.current.dispFactor = THREE.MathUtils.lerp(ref.current.dispFactor, hovered ? 1 : 0, 0.075)
-    ref.current.progressFactor = THREE.MathUtils.lerp(ref.current.progressFactor, hovered ? 1 : 0, 0.075)
+    console.log('delta:', delta)
+    // if (ref.current.progressFactor + 0.001 > 1) ref.current.progressFactor = 0
+    ref.current.progressFactor = THREE.MathUtils.lerp(ref.current.progressFactor, 1, 0.025)
   }, -1)
   return (
     <mesh onPointerOver={(e) => setHover(true)} onPointerOut={(e) => setHover(false)}>
       <planeGeometry args={[width, height]} />
-      {/*<shapeGeometry args={[RoundedRect(width, height, 0.2)]} />*/}
-      <imageWipeMaterial ref={ref} tex={texture1} tex2={texture2} divisionsFactor={35} zoomFactor={0} toneMapped={false} />
+      {/*<imageWipeMaterial ref={ref} tex={texture1} tex2={texture2} divisionsFactor={35} zoomFactor={0} toneMapped={false} />*/}
+      <imageWipeMaterial ref={ref} tex={textures[firstIdx]} tex2={textures[firstIdx]} divisionsFactor={35} zoomFactor={0} toneMapped={false} />
     </mesh>
   )
 }
