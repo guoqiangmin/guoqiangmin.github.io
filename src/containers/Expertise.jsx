@@ -1,8 +1,9 @@
-import { useThree } from '@react-three/fiber'
+import * as THREE from 'three'
+import { useFrame, useThree } from '@react-three/fiber'
 import { Box } from '@react-three/flex'
 import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
-import React from 'react'
+import React, { useRef } from 'react'
 import { useTheme } from '../hooks/useTheme'
 // import { FadingImage } from '../components/FadingImage'
 // import { RoundedRect } from '../components/RoundedRect'
@@ -29,6 +30,19 @@ const skillsData = {
   ],
 }
 
+function Rig({ children }) {
+  const ref = useRef()
+  useFrame((state) => {
+    ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, (state.mouse.x * Math.PI) / 10, 0.25)
+    ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, (state.mouse.y * Math.PI) / 10, 0.25)
+  })
+  return (
+    <group ref={ref} position={[0.6, 0.3, 0.5]}>
+      {children}
+    </group>
+  )
+}
+
 export function Keywords({ width, height }) {
   const theme = useTheme()
   // const { progress } = useProgress()
@@ -41,9 +55,9 @@ export function Keywords({ width, height }) {
         <planeGeometry args={[width, height]} />
         <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.primary} linear={true} toneMapped={false} />
       </mesh>
-      <group position={[0.6, 0.3, 0.3]}>
-        <Cloud count={8} radius={3} />
-      </group>
+      <Rig>
+        <Cloud count={7} radius={3} />
+      </Rig>
       {/*<TrackballControls />*/}
     </group>
   )

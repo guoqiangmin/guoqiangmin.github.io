@@ -23,16 +23,26 @@ function Word({ children, ...props }) {
   // console.log('position:', position.z)
   useFrame(({ camera, pointer }) => {
     // Make text face the camera
-    ref.current.quaternion.copy(camera.quaternion)
+    // ref.current.quaternion.copy(camera.quaternion)
+    ref.current.lookAt(new THREE.Vector3().copy(camera.position))
     // Animate font color
     ref.current.material.color.lerp(color.set(hovered ? '#dbef52' : 'white'), 0.1)
-    ref.current.material.opacity = 0.12 * Math.pow(props.position.z, 3)
+    // ref.current.material.opacity = 0.12 * Math.pow(props.position.z, 3)
 
-    // const vec = new THREE.Vector3()
-    // ref.current.position.lerp(vec.set(pointer.x * 2, pointer.y * 1, ref.current.position.z), 0.02)
-    // camera.position.lerp(vec.set(mouse.x * 2, mouse.y * 1, camera.position.z), 0.02)
-    // camera.position.lerp(vec.set(pointer.x, camera.position.y, camera.position.z), 0.01)
-    // camera.lookAt(0, 0, 0)
+    const maxOpacity = 1 // Maximum opacity
+    const minOpacity = 0.1 // Minimum opacity
+    const opacityRange = maxOpacity - minOpacity // Range of opacity values
+
+    // Calculate the minimum and maximum z positions of all objects in the scene
+    const boundingBox = new THREE.Box3().setFromObject(ref.current.parent)
+    const minZ = boundingBox.min.z
+    const maxZ = boundingBox.max.z
+
+    // Calculate the new opacity based on the object's z position
+    const newOpacity = maxOpacity - ((ref.current.position.z - minZ) / (maxZ - minZ)) * opacityRange
+
+    // Set the new opacity value
+    ref.current.material.opacity = 1 - newOpacity
   })
   return (
     <Text ref={ref} onPointerOver={over} onPointerOut={out} onClick={() => console.log('clicked')} {...props} {...fontProps} children={children} />
