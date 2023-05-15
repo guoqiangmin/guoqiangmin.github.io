@@ -72,13 +72,14 @@ export function Portfolio({ onReflow }) {
       </Box>
       <Box marginLeft={1.5} marginRight={1.5} marginTop={0.25}>
         <Text
+          italic
           position-z={0.5}
-          fontSize={scale * 0.518}
+          fontSize={scale * 0.418}
           lineHeight={1}
-          letterSpacing={-0.05}
+          letterSpacing={0}
           color={theme.palette.text.neutral}
           maxWidth={(viewport.width / 4) * 3}>
-          {portfolioData.description}
+          {portfolioData.description.toUpperCase()}
         </Text>
       </Box>
       <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">

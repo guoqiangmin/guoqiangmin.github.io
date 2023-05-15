@@ -37,7 +37,7 @@ function Rig({ children }) {
     ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, (state.mouse.y * Math.PI) / 10, 0.25)
   })
   return (
-    <group ref={ref} position={[0.6, 0.3, 0.5]}>
+    <group ref={ref} position={[0.5, 0.2, 0.5]}>
       {children}
     </group>
   )
@@ -114,13 +114,14 @@ export function Expertise({ onReflow }) {
       </Box>
       <Box marginLeft={1.5} marginRight={1.5} marginTop={0.25}>
         <Text
+          italic
           position-z={0.5}
-          fontSize={scale * 0.518}
+          fontSize={scale * 0.418}
           lineHeight={1}
-          letterSpacing={-0.05}
+          letterSpacing={0}
           color={theme.palette.text.neutral}
           maxWidth={(viewport.width / 4) * 3}>
-          {skillsData.description}
+          {skillsData.description.toUpperCase()}
         </Text>
       </Box>
       <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">

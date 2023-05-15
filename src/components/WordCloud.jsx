@@ -3,8 +3,10 @@ import { useRef, useState, useMemo, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Text, TrackballControls } from '@react-three/drei'
 import randomWord from 'random-words'
+import { useTheme } from '../hooks/useTheme'
 
 function Word({ children, ...props }) {
+  const theme = useTheme()
   const color = new THREE.Color()
   const fontProps = { font: '/Inter-Bold.woff', fontSize: 0.5, letterSpacing: -0.05, lineHeight: 2, 'material-toneMapped': false }
   const ref = useRef()
@@ -26,11 +28,11 @@ function Word({ children, ...props }) {
     // ref.current.quaternion.copy(camera.quaternion)
     ref.current.lookAt(new THREE.Vector3().copy(camera.position))
     // Animate font color
-    ref.current.material.color.lerp(color.set(hovered ? '#dbef52' : 'white'), 0.1)
+    ref.current.material.color.lerp(color.set(hovered ? '#ef5252' : theme.palette.text.primary), 0.1)
     // ref.current.material.opacity = 0.12 * Math.pow(props.position.z, 3)
 
     const maxOpacity = 1 // Maximum opacity
-    const minOpacity = 0.1 // Minimum opacity
+    const minOpacity = 0.2 // Minimum opacity
     const opacityRange = maxOpacity - minOpacity // Range of opacity values
 
     // Calculate the minimum and maximum z positions of all objects in the scene
