@@ -69,22 +69,23 @@ export const ImageWipeMaterial = shaderMaterial(
 
 extend({ ImageWipeMaterial })
 
-export function SliderImage({ images, activeIndex, width, height }) {
+export function SliderImage({ images, activeIndex, width, height, isForward }) {
   const ref = useRef()
-  const firstIdx = activeIndex % images.length
+  const firstIdx = isForward ? activeIndex : (activeIndex + 2) % images.length
   const nextIdx = (activeIndex + 1) % images.length
-
+  console.log('firstIdx:', firstIdx)
+  console.log('secondIdx:', nextIdx)
   // const [texture1, texture2] = useTexture([images[firstIdx], images[nextIdx]])
   const textures = useTexture(images)
   const [hovered, setHover] = useState(false)
 
   useEffect(() => {
     ref.current.progressFactor = 0
-  }, [activeIndex])
+  }, [activeIndex, isForward])
 
   useFrame((state, delta) => {
     // ref.current.dispFactor = THREE.MathUtils.lerp(ref.current.dispFactor, hovered ? 1 : 0, 0.075)
-    console.log('delta:', delta)
+    // console.log('delta:', delta)
     // if (ref.current.progressFactor + 0.001 > 1) ref.current.progressFactor = 0
     // ref.current.progressFactor = THREE.MathUtils.lerp(ref.current.progressFactor, 1, 0.025)
     ref.current.progressFactor += (1 - ref.current.progressFactor) * 0.025

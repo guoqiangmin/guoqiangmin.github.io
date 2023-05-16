@@ -64,6 +64,7 @@ export default function palette(themeMode) {
       secondary: GREY[700],
       neutral: alpha(GREY[500], 0.16),
       disabled: alpha(GREY[700], 0.5),
+      hover: '#ef5252',
     },
     background: { paper: GREY[0], default: GREY[100], neutral: GREY[300], card: { primary: GREY[200], secondary: GREY[300] } },
     action: {
@@ -80,6 +81,7 @@ export default function palette(themeMode) {
       secondary: GREY[300],
       neutral: alpha(GREY[600], 0.16),
       disabled: GREY[500],
+      hover: '#b2ef52',
     },
     background: {
       paper: GREY[800],

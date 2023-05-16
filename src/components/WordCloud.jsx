@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { useRef, useState, useMemo, useEffect } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Text, TrackballControls } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
+import { Text } from '@react-three/drei'
 import randomWord from 'random-words'
 import { useTheme } from '../hooks/useTheme'
 
@@ -11,7 +11,10 @@ function Word({ children, ...props }) {
   const fontProps = { font: '/Inter-Bold.woff', fontSize: 0.5, letterSpacing: -0.05, lineHeight: 2, 'material-toneMapped': false }
   const ref = useRef()
   const [hovered, setHovered] = useState(false)
-  const over = (e) => (e.stopPropagation(), setHovered(true))
+  const over = (e) => {
+    e.stopPropagation()
+    setHovered(true)
+  }
   const out = () => setHovered(false)
   // const { mouse } = useThree()
 
@@ -28,7 +31,7 @@ function Word({ children, ...props }) {
     // ref.current.quaternion.copy(camera.quaternion)
     ref.current.lookAt(new THREE.Vector3().copy(camera.position))
     // Animate font color
-    ref.current.material.color.lerp(color.set(hovered ? '#ef5252' : theme.palette.text.primary), 0.1)
+    ref.current.material.color.lerp(color.set(hovered ? theme.palette.text.hover : theme.palette.text.primary), 0.1)
     // ref.current.material.opacity = 0.12 * Math.pow(props.position.z, 3)
 
     const maxOpacity = 1 // Maximum opacity

@@ -2,7 +2,7 @@ import { useThree } from '@react-three/fiber'
 import { Box } from '@react-three/flex'
 import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
 import { FadingImage } from '../components/FadingImage'
 import styled from 'styled-components'
@@ -43,8 +43,8 @@ export function Career({ width, height }) {
   const { progress } = useProgress()
   const { gl, viewport } = useThree()
   const [show, setShow] = useState('')
-  const scale = Math.min(1, viewport.width / 16)
-
+  // const scale = Math.min(1, viewport.width / 16)
+  console.log('viewport width', viewport.width, width)
   useEffect(() => {
     const t = setTimeout(() => {
       if (progress >= 100) setShow('show')
@@ -81,11 +81,11 @@ export function About({ onReflow }) {
     centerAnchor: true,
     grow: 1,
     marginTop: 0.75,
-    marginLeft: 0.5,
-    marginRight: 0,
+    marginLeft: 0.25,
+    marginRight: 0.25,
     width: 'auto',
     height: 'auto',
-    minWidth: 3,
+    minWidth: 6,
     minHeight: 9.25,
     maxWidth: 6,
     maxHeight: 11.43,
@@ -121,10 +121,8 @@ export function About({ onReflow }) {
         </Text>
       </Box>
       <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
-        <Box {...{ ...boxProps, minWidth: 6, maxWidth: 7.07 }}>
-          {(width, height) => <FadingImage image={aboutData.image} width={width} height={height} />}
-        </Box>
-        <Box {...{ ...boxProps, minWidth: 7.07, maxWidth: 11.43 }}>{(width, height) => <Career width={width} height={height} />}</Box>
+        <Box {...{ ...boxProps, maxWidth: 7.07 }}>{(width, height) => <FadingImage image={aboutData.image} width={width} height={height} />}</Box>
+        <Box {...{ ...boxProps, maxWidth: 11.43 }}>{(width, height) => <Career width={width} height={height} />}</Box>
       </Box>
     </Box>
   )
