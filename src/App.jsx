@@ -8,6 +8,7 @@ import { Content } from './components/Content'
 import { useThemeSetting } from './contexts/theme'
 import { CustomCursor } from './components/CustomCursor'
 import { LoadingScreen } from './components/LoadingScreen'
+// import { TrailCursor } from './components/TrailCursor'
 
 export default function App() {
   const theme = useTheme()
@@ -40,6 +41,7 @@ export default function App() {
   return (
     <>
       <CustomCursor />
+      {/*<TrailCursor />*/}
       <Canvas
         shadows
         raycaster={{ enabled: false }}

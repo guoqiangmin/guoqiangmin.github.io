@@ -49,8 +49,8 @@ const skillsData = {
       back: '/images/ajQ73ol.jpg',
     },
     {
-      front: '/images/gZOmLNU.jpg',
-      back: '/images/gZOmLNU.jpg',
+      front: '/images/5.jpg',
+      back: '/images/5.jpg',
     },
   ],
 }

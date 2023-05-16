@@ -10,7 +10,7 @@ export default function Model(props) {
   // const theme = useTheme()
   const group = useRef()
   const shadow = useRef()
-  const { nodes } = useGLTF('/geo.min.glb', true)
+  const { nodes } = useGLTF('/models/geo.min.glb', true)
   useFrame(({ clock }) => {
     const t = (1 + Math.sin(clock.getElapsedTime() * 1.5)) / 2
     group.current.position.y = t / 2

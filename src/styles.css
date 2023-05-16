@@ -74,6 +74,43 @@ body {
   font-weight: 700;
 }
 
+.hooksMain {
+  position: absolute;
+  /*width: 100%;*/
+  /*height: 100%;*/
+  /* filter: url('#goo'); */
+  /*overflow: hidden;*/
+  /*background: transparent;*/
+  /*-webkit-touch-callout: none;*/
+  /*-webkit-user-select: none;*/
+  /*-khtml-user-select: none;*/
+  /*-moz-user-select: none;*/
+  /*-ms-user-select: none;*/
+  /*user-select: none;*/
+  /*cursor: default;*/
+}
+
+.hooksMain > div {
+  position: absolute;
+  will-change: transform;
+  border-radius: 50%;
+  background: white;
+  /* box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75); */
+  /*opacity: 0.6;*/
+  mix-blend-mode: difference;
+  z-index: 10000;
+}
+
+.hooksMain > div:nth-child(1) {
+  width: 30px;
+  height: 30px;
+}
+
+.hooksMain > div:nth-child(2) {
+  width: 50px;
+  height: 50px;
+}
+
 .main-cursor,
 .secondary-cursor {
   z-index: 10000;

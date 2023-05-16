@@ -10,7 +10,7 @@ const contactData = {
   color: '#cccccc',
   textColor: '#ffffff',
   text: 'In the vast expanse\nof possibilities,\ninnovation knows\nno bounds.\nThe journey of\ndigital transformation\nnever stops...',
-  image: '/images/cAKwexj.jpg',
+  image: '/images/1.jpg',
   lines: [
     {
       points: [

@@ -15,8 +15,8 @@ const aboutData = {
   detail:
     "I am a highly productive senior frontend engineer/developer with 8+ years of diverse industry experience. My expertise lies in building stunning UI/UX, optimizing performance, and solving complex problems. As a strong team player, I'm always up-to-date with the latest technologies and best practices in software development.",
   image: {
-    front: '/img/me1.jpg',
-    back: '/img/me2.jpg',
+    front: '/images/about/1.jpg',
+    back: '/images/about/2.jpg',
   },
 }
 

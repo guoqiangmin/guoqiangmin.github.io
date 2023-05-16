@@ -13,7 +13,7 @@ const homeData = {
   depth: 0,
   // color: '#cccccc',
   // textColor: '#ffffff',
-  image: '/images/cAKwexj.jpg',
+  image: '/images/home/1.jpg',
 }
 
 export function Home() {

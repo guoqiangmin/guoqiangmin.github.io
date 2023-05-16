@@ -14,7 +14,7 @@ const portfolioData = {
   tag: '01',
   text: `Portfolio`,
   description: 'A Collection of Stunning Projects in Diverse Industry',
-  images: ['/images/BH41NVu.jpg', '/images/fBoIJLX.jpg', '/images/04zTfWB.jpg', '/images/gwuZrgo.jpg', '/images/gZOmLNU.jpg'],
+  images: ['/images/portfolio/1.jpg', '/images/portfolio/2.jpg', '/images/portfolio/3.jpg', '/images/portfolio/4.jpg', '/images/portfolio/5.jpg'],
 }
 
 const FormWrapper = styled.div`
