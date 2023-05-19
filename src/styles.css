@@ -290,3 +290,24 @@ body {
     transform: translateY(0);
   }
 }
+
+/* Extended */
+body.loaded .overlay-container {
+  opacity: 1;
+}
+
+body.loaded .loading-container {
+  opacity: 0;
+}
+
+body.loaded .form-wrapper {
+  /*display: block;*/
+}
+
+body.enable-html .form-wrapper {
+  display: block;
+}
+
+body.enable-html .loading-container {
+  display: none;
+}

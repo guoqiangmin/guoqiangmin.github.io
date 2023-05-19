@@ -2,11 +2,11 @@ import { useThree } from '@react-three/fiber'
 import { Box } from '@react-three/flex'
 import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useTheme } from '../hooks/useTheme'
 import { FadingImage } from '../components/FadingImage'
 import styled from 'styled-components'
-import { Html, useProgress } from '@react-three/drei'
+import { Html } from '@react-three/drei'
 
 const aboutData = {
   tag: '02',
@@ -15,17 +15,14 @@ const aboutData = {
   detail:
     "I am a highly productive senior frontend engineer/developer with 8+ years of diverse industry experience. My expertise lies in building stunning UI/UX, optimizing performance, and solving complex problems. As a strong team player, I'm always up-to-date with the latest technologies and best practices in software development.",
   image: {
-    front: '/images/about/1.jpg',
-    back: '/images/about/2.jpg',
+    front: '/images/about/1.png',
+    back: '/images/about/2.png',
   },
 }
 
 const FormWrapper = styled.div`
   padding: 5px;
   display: none;
-  &.show {
-    display: block;
-  }
 `
 
 const Description = styled.div`
@@ -40,29 +37,17 @@ const Description = styled.div`
 
 export function Career({ width, height }) {
   const theme = useTheme()
-  const { progress } = useProgress()
   const { gl, viewport } = useThree()
-  const [show, setShow] = useState('')
   // const scale = Math.min(1, viewport.width / 16)
   console.log('viewport width', viewport.width, width)
-  useEffect(() => {
-    const t = setTimeout(() => {
-      if (progress >= 100) setShow('show')
-    }, 2000)
-    return () => {
-      clearTimeout(t)
-    }
-  }, [progress])
 
   return (
-    <group>
-      <mesh>
-        {/*<shapeGeometry args={[RoundedRect(width, height, 0.15)]} />*/}
-        <planeGeometry args={[width, height]} />
-        <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.primary} linear={true} toneMapped={false} />
-      </mesh>
+    <mesh>
+      {/*<shapeGeometry args={[RoundedRect(width, height, 0.15)]} />*/}
+      <planeGeometry args={[width, height]} />
+      <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.primary} linear={true} toneMapped={false} />
       <Html transform portal={{ current: gl.domElement.parentNode }}>
-        <FormWrapper className={`${show}`}>
+        <FormWrapper className={'form-wrapper'}>
           <Description color={theme.palette.text.primary}>
             I am a highly productive senior frontend engineer/developer with 8+ years of diverse industry experience. My expertise lies in building
             stunning UI/UX, optimizing performance, and solving complex problems. As a strong team player, I'm always up-to-date with the latest
@@ -70,7 +55,7 @@ export function Career({ width, height }) {
           </Description>
         </FormWrapper>
       </Html>
-    </group>
+    </mesh>
   )
 }
 

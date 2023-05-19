@@ -2,9 +2,9 @@ import { useThree } from '@react-three/fiber'
 import { Box } from '@react-three/flex'
 import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { useTheme } from '../hooks/useTheme'
-import { Html, useProgress } from '@react-three/drei'
+import { Html } from '@react-three/drei'
 // import { RoundedRect } from '../components/RoundedRect'
 import styled from 'styled-components'
 
@@ -103,23 +103,11 @@ const Button = styled.button`
 
 export function ContactForm({ width, height }) {
   const theme = useTheme()
-  const { progress } = useProgress()
   const { gl } = useThree()
 
   const nameRef = useRef(null)
   const emailRef = useRef(null)
   const messageRef = useRef(null)
-
-  const [show, setShow] = useState('')
-
-  useEffect(() => {
-    const t = setTimeout(() => {
-      if (progress >= 100) setShow('show')
-    }, 2000)
-    return () => {
-      clearTimeout(t)
-    }
-  }, [progress])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -138,52 +126,52 @@ export function ContactForm({ width, height }) {
         {/*<shapeGeometry args={[RoundedRect(width, height, 0.15)]} />*/}
         <planeGeometry args={[width, height]} />
         <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.primary} linear={true} toneMapped={false} />
+        <Html transform portal={{ current: gl.domElement.parentNode }}>
+          <FormWrapper className={'form-wrapper'}>
+            <Form onSubmit={handleSubmit}>
+              <Input
+                type="text"
+                id="name"
+                placeholder="Name"
+                ref={nameRef}
+                style={{
+                  '--input-color': theme.palette.text.secondary,
+                  '--input-placeholder-color': theme.palette.text.disabled,
+                }}
+              />
+              <Input
+                type="email"
+                id="email"
+                placeholder="Email"
+                ref={emailRef}
+                style={{
+                  '--input-color': theme.palette.text.secondary,
+                  '--input-placeholder-color': theme.palette.text.disabled,
+                }}
+              />
+              <TextArea
+                ref={messageRef}
+                placeholder="Message"
+                style={{
+                  '--input-color': theme.palette.text.secondary,
+                  '--input-placeholder-color': theme.palette.text.disabled,
+                }}
+              />
+              <Button
+                type="submit"
+                id="message"
+                style={{
+                  '--button-background-color': theme.palette.text.secondary,
+                  '--button-color': theme.palette.background.default,
+                  '--button-hover-background-color': theme.palette.text.primary,
+                  '--button-hover-color': theme.palette.background.default,
+                }}>
+                Send
+              </Button>
+            </Form>
+          </FormWrapper>
+        </Html>
       </mesh>
-      <Html transform portal={{ current: gl.domElement.parentNode }}>
-        <FormWrapper className={`${show}`}>
-          <Form onSubmit={handleSubmit}>
-            <Input
-              type="text"
-              id="name"
-              placeholder="Name"
-              ref={nameRef}
-              style={{
-                '--input-color': theme.palette.text.secondary,
-                '--input-placeholder-color': theme.palette.text.disabled,
-              }}
-            />
-            <Input
-              type="email"
-              id="email"
-              placeholder="Email"
-              ref={emailRef}
-              style={{
-                '--input-color': theme.palette.text.secondary,
-                '--input-placeholder-color': theme.palette.text.disabled,
-              }}
-            />
-            <TextArea
-              ref={messageRef}
-              placeholder="Message"
-              style={{
-                '--input-color': theme.palette.text.secondary,
-                '--input-placeholder-color': theme.palette.text.disabled,
-              }}
-            />
-            <Button
-              type="submit"
-              id="message"
-              style={{
-                '--button-background-color': theme.palette.text.secondary,
-                '--button-color': theme.palette.background.default,
-                '--button-hover-background-color': theme.palette.text.primary,
-                '--button-hover-color': theme.palette.background.default,
-              }}>
-              Send
-            </Button>
-          </Form>
-        </FormWrapper>
-      </Html>
     </group>
   )
 }

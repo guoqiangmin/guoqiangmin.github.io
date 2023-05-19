@@ -8,7 +8,7 @@ import { useTheme } from '../hooks/useTheme'
 function Word({ children, ...props }) {
   const theme = useTheme()
   const color = new THREE.Color()
-  const fontProps = { font: '/Inter-Bold.woff', fontSize: 0.5, letterSpacing: -0.05, lineHeight: 2, 'material-toneMapped': false }
+  const fontProps = { font: 'fonts/Roboto-Bold.ttf', fontSize: 0.5, letterSpacing: -0.05, lineHeight: 2, 'material-toneMapped': false }
   const ref = useRef()
   const [hovered, setHovered] = useState(false)
   const over = (e) => {

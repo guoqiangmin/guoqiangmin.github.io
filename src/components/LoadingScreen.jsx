@@ -1,21 +1,28 @@
 import { useProgress } from '@react-three/drei'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 export const LoadingScreen = () => {
   const { progress } = useProgress()
-  const [hidden, setHidden] = useState('')
 
   useEffect(() => {
-    const t = setTimeout(() => {
-      if (progress >= 100) setHidden('hidden')
-    }, 2000)
+    let t
+    if (progress >= 100) {
+      document.body.classList.add('loaded')
+      t = setTimeout(() => {
+        document.body.classList.add('enable-html')
+      }, 2000)
+    }
     return () => {
-      clearTimeout(t)
+      document.body.classList.remove('loaded')
+      if (t) {
+        clearTimeout(t)
+        document.body.classList.remove('enable-html')
+      }
     }
   }, [progress])
 
   return (
-    <div className={`loading ${progress < 100 ? '' : 'loaded'} ${hidden}`}>
+    <div className={`loading loading-container`}>
       <div className={`loading-data`}>{Math.round(progress)}</div>
       <div className="loading-bar-container">
         <div

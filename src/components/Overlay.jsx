@@ -5,7 +5,6 @@ import { IconLinkedIn } from './icons/LinkedIn'
 import { IconGithub } from './icons/Github'
 import state from '../store/state'
 import React, { Fragment } from 'react'
-import { useProgress } from '@react-three/drei'
 
 const OverlayContainer = styled.div`
   transition: opacity 2s;
@@ -180,10 +179,9 @@ const TopRight = styled.div`
 
 export default function Overlay() {
   const theme = useTheme()
-  const { progress } = useProgress()
 
   return (
-    <OverlayContainer className={`${progress < 100 ? '' : 'loaded'}`}>
+    <OverlayContainer className={`overlay-container`}>
       <TopLeft>
         <LogoSimple color={theme.palette.text.secondary} />
       </TopLeft>

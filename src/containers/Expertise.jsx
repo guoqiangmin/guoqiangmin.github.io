@@ -3,13 +3,10 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { Box } from '@react-three/flex'
 import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { useTheme } from '../hooks/useTheme'
-// import { FadingImage } from '../components/FadingImage'
-// import { RoundedRect } from '../components/RoundedRect'
-// import { TrackballControls, useProgress } from '@react-three/drei'
 import { Cloud } from '../components/WordCloud'
-import { Html, useProgress } from '@react-three/drei'
+import { Html } from '@react-three/drei'
 import styled from 'styled-components'
 import { IconGithub } from '../components/icons/Github'
 import { IconReact } from '../components/icons/React'
@@ -26,13 +23,13 @@ import { IconAmazon } from '../components/icons/Amazon'
 import { IconWordpress } from '../components/icons/Wordpress'
 import { IconGoogle } from '../components/icons/Google'
 import { IconVercel } from '../components/icons/Vercel'
-import { IconBitbucket } from '../components/icons/Bitbucket'
+// import { IconBitbucket } from '../components/icons/Bitbucket'
 import { IconDocker } from '../components/icons/Docker'
 import { IconFigma } from '../components/icons/Figma'
 import { IconBitcoin } from '../components/icons/Bitcoin'
 import { IconShopify } from '../components/icons/Shopify'
 import { IconThreejs } from '../components/icons/Threejs'
-import { IconTypescript } from '../components/icons/Typescript'
+// import { IconTypescript } from '../components/icons/Typescript'
 import { IconSlack } from '../components/icons/Slack'
 
 const skillsData = {
@@ -128,19 +125,8 @@ export function Keywords({ width, height }) {
 
 export function Skills({ width, height }) {
   const theme = useTheme()
-  const { progress } = useProgress()
   const { gl } = useThree()
-  const [show, setShow] = useState('')
   // const scale = Math.min(1, viewport.width / 16)
-
-  useEffect(() => {
-    const t = setTimeout(() => {
-      if (progress >= 100) setShow('show')
-    }, 2000)
-    return () => {
-      clearTimeout(t)
-    }
-  }, [progress])
 
   return (
     <group>
@@ -148,57 +134,57 @@ export function Skills({ width, height }) {
         {/*<shapeGeometry args={[RoundedRect(width, height, 0.15)]} />*/}
         <planeGeometry args={[width, height]} />
         <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.secondary} linear={true} toneMapped={false} />
+        <Html transform portal={{ current: gl.domElement.parentNode }}>
+          <FormWrapper className={'form-wrapper'}>
+            <SkillList color={theme.palette.text.primary}>
+              <SkillListItem>
+                <SkillItem>
+                  <SkillItemTitle>Primary Skills</SkillItemTitle>
+                  <SkillItemIcons>
+                    <IconReact width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconJavascript width={17} height={17} color={theme.palette.text.secondary} />
+                    {/*<IconTypescript width={15} height={17} color={theme.palette.text.secondary} />*/}
+                    <IconHtml5 width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconCss3 width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconSass width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconNodejs width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconShopify width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconThreejs width={17} height={17} color={theme.palette.text.secondary} />
+                  </SkillItemIcons>
+                </SkillItem>
+                <SkillItem>
+                  <SkillItemTitle>Secondary Skills</SkillItemTitle>
+                  <SkillItemIcons>
+                    <IconVue width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconAngular width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconPython width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconLaravel width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconWordpress width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconBitcoin width={17} height={17} color={theme.palette.text.secondary} />
+                  </SkillItemIcons>
+                </SkillItem>
+                <SkillItem>
+                  <SkillItemTitle>Cloud Services</SkillItemTitle>
+                  <SkillItemIcons>
+                    <IconAmazon width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconGoogle width={17} height={17} color={theme.palette.text.secondary} />
+                  </SkillItemIcons>
+                </SkillItem>
+                <SkillItem>
+                  <SkillItemTitle>Development Tools</SkillItemTitle>
+                  <SkillItemIcons>
+                    <IconDocker width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconVercel width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconGithub width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconSlack width={17} height={17} color={theme.palette.text.secondary} />
+                    <IconFigma width={17} height={17} color={theme.palette.text.secondary} />
+                  </SkillItemIcons>
+                </SkillItem>
+              </SkillListItem>
+            </SkillList>
+          </FormWrapper>
+        </Html>
       </mesh>
-      <Html transform portal={{ current: gl.domElement.parentNode }}>
-        <FormWrapper className={`${show}`}>
-          <SkillList color={theme.palette.text.primary}>
-            <SkillListItem>
-              <SkillItem>
-                <SkillItemTitle>Primary Skills</SkillItemTitle>
-                <SkillItemIcons>
-                  <IconReact width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconJavascript width={17} height={17} color={theme.palette.text.secondary} />
-                  {/*<IconTypescript width={15} height={17} color={theme.palette.text.secondary} />*/}
-                  <IconHtml5 width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconCss3 width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconSass width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconNodejs width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconShopify width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconThreejs width={17} height={17} color={theme.palette.text.secondary} />
-                </SkillItemIcons>
-              </SkillItem>
-              <SkillItem>
-                <SkillItemTitle>Secondary Skills</SkillItemTitle>
-                <SkillItemIcons>
-                  <IconVue width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconAngular width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconPython width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconLaravel width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconWordpress width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconBitcoin width={17} height={17} color={theme.palette.text.secondary} />
-                </SkillItemIcons>
-              </SkillItem>
-              <SkillItem>
-                <SkillItemTitle>Cloud Services</SkillItemTitle>
-                <SkillItemIcons>
-                  <IconAmazon width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconGoogle width={17} height={17} color={theme.palette.text.secondary} />
-                </SkillItemIcons>
-              </SkillItem>
-              <SkillItem>
-                <SkillItemTitle>Development Tools</SkillItemTitle>
-                <SkillItemIcons>
-                  <IconDocker width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconVercel width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconGithub width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconSlack width={17} height={17} color={theme.palette.text.secondary} />
-                  <IconFigma width={17} height={17} color={theme.palette.text.secondary} />
-                </SkillItemIcons>
-              </SkillItem>
-            </SkillListItem>
-          </SkillList>
-        </FormWrapper>
-      </Html>
     </group>
   )
 }

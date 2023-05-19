@@ -2,10 +2,10 @@ import { useThree } from '@react-three/fiber'
 import { Box } from '@react-three/flex'
 import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
 import { SliderImage } from '../components/SliderImage'
-import { Html, useProgress } from '@react-three/drei'
+import { Html } from '@react-three/drei'
 import styled from 'styled-components'
 import { IconArrowBackCircle } from '../components/icons/ArrowBackCircle'
 import { IconArrowForwardCircle } from '../components/icons/ArrowForwardCircle'
@@ -44,7 +44,7 @@ const ControlButton = styled.button`
   transition: all 0.3s ease-in-out;
   color: inherit;
   &:hover {
-    color: ${(props) => props.hoverColor};
+    color: ${(props) => props.hovercolor};
   }
 `
 
@@ -60,41 +60,30 @@ const Description = styled.div`
 
 export function SlideControl({ width, height, onNext, onPrev }) {
   const theme = useTheme()
-  const { progress } = useProgress()
   const { gl } = useThree()
-  const [show, setShow] = useState('')
-
-  useEffect(() => {
-    const t = setTimeout(() => {
-      if (progress >= 100) setShow('show')
-    }, 2000)
-    return () => {
-      clearTimeout(t)
-    }
-  }, [progress])
 
   return (
     <group>
       <mesh>
         <planeGeometry args={[width, height]} />
         <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.secondary} linear={true} toneMapped={false} />
+        <Html transform portal={{ current: gl.domElement.parentNode }}>
+          <FormWrapper className={'form-wrapper'}>
+            <NavigationControls color={theme.palette.text.secondary}>
+              <ControlButton style={{ marginLeft: '-7px' }} onClick={onPrev} hovercolor={theme.palette.text.hover}>
+                <IconArrowBackCircle width={32} height={32} />
+              </ControlButton>
+              <ControlButton onClick={onNext} hovercolor={theme.palette.text.hover}>
+                <IconArrowForwardCircle width={32} height={32} />
+              </ControlButton>
+            </NavigationControls>
+            <Description color={theme.palette.text.primary}>
+              Developed a responsive e-commerce website for a global fashion brand, implementing a sleek UI/UX design, seamless checkout process, and
+              integrated payment gateway for enhanced customer experience and increased conversions.
+            </Description>
+          </FormWrapper>
+        </Html>
       </mesh>
-      <Html transform portal={{ current: gl.domElement.parentNode }}>
-        <FormWrapper className={`${show}`}>
-          <NavigationControls color={theme.palette.text.secondary}>
-            <ControlButton style={{ marginLeft: '-7px' }} onClick={onPrev} hoverColor={theme.palette.text.hover}>
-              <IconArrowBackCircle width={32} height={32} />
-            </ControlButton>
-            <ControlButton onClick={onNext} hoverColor={theme.palette.text.hover}>
-              <IconArrowForwardCircle width={32} height={32} />
-            </ControlButton>
-          </NavigationControls>
-          <Description color={theme.palette.text.primary}>
-            Developed a responsive e-commerce website for a global fashion brand, implementing a sleek UI/UX design, seamless checkout process, and
-            integrated payment gateway for enhanced customer experience and increased conversions.
-          </Description>
-        </FormWrapper>
-      </Html>
     </group>
   )
 }
