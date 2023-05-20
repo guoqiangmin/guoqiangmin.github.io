@@ -23,6 +23,12 @@ export const ImageFadeMaterial = shaderMaterial(
     uniform float _rot;
     uniform float dispFactor;
     uniform float effectFactor;
+    float srgbToLinear(float c) {
+        if (c <= 0.04045)
+            return c / 12.92;
+        else
+            return pow((c + 0.055) / 1.055, 2.4);
+    }
     void main() {
       vec2 uv = vUv;
       vec4 disp = texture2D(disp, uv);
@@ -31,7 +37,7 @@ export const ImageFadeMaterial = shaderMaterial(
       vec4 _texture = texture2D(tex, distortedPosition);
       vec4 _texture2 = texture2D(tex2, distortedPosition2);
       vec4 finalTexture = mix(_texture, _texture2, dispFactor);
-      gl_FragColor = finalTexture;
+      gl_FragColor = vec4(srgbToLinear(finalTexture.r), srgbToLinear(finalTexture.g), srgbToLinear(finalTexture.b), finalTexture.a);
       #include <tonemapping_fragment>
       #include <encodings_fragment>
     }`

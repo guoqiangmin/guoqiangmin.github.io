@@ -4,7 +4,7 @@ import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
 import React, { useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
-import { SliderImage } from '../components/SliderImage'
+import { CustomSlider, SliderImage } from '../components/CustomSlider'
 import { Html } from '@react-three/drei'
 import styled from 'styled-components'
 import { IconArrowBackCircle } from '../components/icons/ArrowBackCircle'
@@ -14,7 +14,138 @@ const portfolioData = {
   tag: '01',
   text: `Portfolio`,
   description: 'A Collection of Stunning Projects in Diverse Industry',
-  images: ['/images/portfolio/1.jpg', '/images/portfolio/2.jpg', '/images/portfolio/3.jpg', '/images/portfolio/4.jpg', '/images/portfolio/5.jpg'],
+  items: [
+    {
+      image: '/images/portfolio/1.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/2.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/3.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/4.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/5.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/6.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/7.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/8.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/9.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/10.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/11.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/12.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/13.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/14.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/15.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/16.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/17.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/18.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/19.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/20.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/21.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/22.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/23.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/24.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/25.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+    {
+      image: '/images/portfolio/26.png',
+      title: 'Shopify Website',
+      description: '',
+    },
+  ],
 }
 
 const FormWrapper = styled.div`
@@ -108,7 +239,7 @@ export function Portfolio({ onReflow }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isForward, setIsForward] = useState(true)
 
-  const itemCount = portfolioData.images.length
+  const itemCount = portfolioData.items.length
   const onNext = () => {
     setIsForward(true)
     setCurrentIndex((prev) => (prev >= itemCount - 1 ? 0 : prev + 1))
@@ -149,7 +280,7 @@ export function Portfolio({ onReflow }) {
       <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
         <Box {...{ ...boxProps, maxWidth: 13.5 }}>
           {(width, height) => (
-            <SliderImage images={portfolioData.images} activeIndex={currentIndex} width={width} height={height} isForward={isForward} />
+            <CustomSlider items={portfolioData.items} activeIndex={currentIndex} width={width} height={height} isForward={isForward} />
           )}
         </Box>
         <Box {...{ ...boxProps, maxWidth: 8.2 }}>
