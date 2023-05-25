@@ -62,7 +62,7 @@ export default function palette(themeMode) {
     text: {
       primary: GREY[800],
       secondary: GREY[700],
-      neutral: alpha(GREY[500], 0.16),
+      neutral: GREY[500], // alpha(GREY[500], 0.16),
       disabled: alpha(GREY[700], 0.5),
       hover: '#ef5252',
     },
@@ -79,14 +79,14 @@ export default function palette(themeMode) {
     text: {
       primary: GREY[100],
       secondary: GREY[300],
-      neutral: alpha(GREY[600], 0.16),
+      neutral: GREY[600], // alpha(GREY[600], 0.16),
       disabled: GREY[500],
       hover: '#b2ef52',
     },
     background: {
       paper: GREY[800],
       default: GREY[900],
-      neutral: alpha(GREY[500], 0.16),
+      neutral: GREY[500], //alpha(GREY[500], 0.16),
       card: {
         primary: '#0a0a0a',
         secondary: GREY[800],

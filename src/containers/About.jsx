@@ -46,7 +46,7 @@ export function Career({ width, height }) {
       {/*<shapeGeometry args={[RoundedRect(width, height, 0.15)]} />*/}
       <planeGeometry args={[width, height]} />
       <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.primary} linear={true} toneMapped={false} />
-      <Html transform portal={{ current: gl.domElement.parentNode }}>
+      <Html transform portal={{ current: gl.domElement.parentNode }} pointerEvents={'none'}>
         <FormWrapper className={'form-wrapper'}>
           <Description color={theme.palette.text.primary}>
             I am a highly productive senior frontend engineer/developer with 8+ years of diverse industry experience. My expertise lies in building

@@ -58,7 +58,8 @@ export const ImageWipeMaterial = shaderMaterial(
       vec2 uvGrid = fract(uv * vec2(1. , divisionsFactor));
       vec2 scaledUv = getScaledUv(uv, 1. + zoomFactor);
       
-      float currentProgress = fract(progressFactor);
+      // float currentProgress = fract(progressFactor);
+      float currentProgress = progressFactor;
       
       vec2 uvDisplaced1 = scaledUv + uvGrid * vec2(0., scaledUv.y + directionFactor * offsetFactor) * currentProgress;
       vec2 uvDisplaced2 = scaledUv + uvGrid * vec2(0., scaledUv.y - directionFactor * offsetFactor) * (1. - currentProgress);
@@ -76,34 +77,31 @@ export const ImageWipeMaterial = shaderMaterial(
 
 extend({ ImageWipeMaterial })
 
-export function CustomSlider({ items, activeIndex, width, height, isForward }) {
+export function CustomSlider({ items, prevIndex, activeIndex, width, height, isClicked }) {
   const ref = useRef()
-  const firstIdx = isForward ? activeIndex : (activeIndex + 2) % items.length
-  const nextIdx = (activeIndex + 1) % items.length
-  console.log('firstIdx:', firstIdx)
-  console.log('secondIdx:', nextIdx)
-  // const [texture1, texture2] = useTexture([images[firstIdx], images[nextIdx]])
   const images = items.map((v) => v.image)
   const textures = useTexture(images)
-  const [hovered, setHover] = useState(false)
+  // const [hovered, setHover] = useState(false)
 
   useEffect(() => {
     ref.current.progressFactor = 0
-  }, [activeIndex, isForward])
+  }, [activeIndex])
 
   useFrame((state, delta) => {
     // ref.current.dispFactor = THREE.MathUtils.lerp(ref.current.dispFactor, hovered ? 1 : 0, 0.075)
     // console.log('delta:', delta)
     // if (ref.current.progressFactor + 0.001 > 1) ref.current.progressFactor = 0
     // ref.current.progressFactor = THREE.MathUtils.lerp(ref.current.progressFactor, 1, 0.025)
-    ref.current.progressFactor += (1 - ref.current.progressFactor) * 0.025
+    // ref.current.progressFactor += (1 - ref.current.progressFactor) * 0.025
+    ref.current.progressFactor = THREE.MathUtils.lerp(ref.current.progressFactor, isClicked ? 1 : 0, 0.05)
   }, -1)
 
   return (
-    <mesh onPointerOver={(e) => setHover(true)} onPointerOut={(e) => setHover(false)}>
+    // <mesh onPointerOver={(e) => setHover(true)} onPointerOut={(e) => setHover(false)}>
+    <mesh>
       <planeGeometry args={[width, height]} />
       {/*<imageWipeMaterial ref={ref} tex={texture1} tex2={texture2} divisionsFactor={35} zoomFactor={0} toneMapped={false} />*/}
-      <imageWipeMaterial ref={ref} tex={textures[firstIdx]} tex2={textures[nextIdx]} divisionsFactor={35} zoomFactor={0} toneMapped={false} />
+      <imageWipeMaterial ref={ref} tex={textures[prevIndex]} tex2={textures[activeIndex]} divisionsFactor={35} zoomFactor={0} toneMapped={false} />
     </mesh>
   )
 }
