@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { extend, useFrame } from '@react-three/fiber'
 import { useTexture, shaderMaterial } from '@react-three/drei'
 

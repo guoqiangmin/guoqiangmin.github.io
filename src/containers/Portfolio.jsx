@@ -159,6 +159,7 @@ const FormWrapper = styled.div`
   }
 `
 
+/*
 const NavigationControls = styled.div`
   font-size: 0.9em;
   font-weight: 200;
@@ -181,6 +182,7 @@ const ControlButton = styled.button`
     color: ${(props) => props.hovercolor};
   }
 `
+*/
 
 const Description = styled.div`
   font-size: 0.9em;
