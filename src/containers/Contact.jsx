@@ -2,11 +2,13 @@ import { useThree } from '@react-three/fiber'
 import { Box } from '@react-three/flex'
 import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
 import { Html } from '@react-three/drei'
 // import { RoundedRect } from '../components/RoundedRect'
 import styled from 'styled-components'
+import { useSpring } from '@react-spring/web'
+import { MacModel } from '../components/MacModel'
 
 const contactData = {
   tag: '03',
@@ -176,6 +178,23 @@ export function ContactForm({ width, height }) {
   )
 }
 
+function ContactModel() {
+  const [open, setOpen] = useState(false)
+  const props = useSpring({ open: Number(open) })
+  const handleClick = (e) => {
+    e.stopPropagation()
+    setOpen(!open)
+    window.location.href = 'mailto:minguoqiang88@gmail.com'
+  }
+
+  return (
+    <group rotation={[0, 0, 0]} scale={0.7} position-y={1} onClick={handleClick}>
+      <MacModel hinge={props.open.to([0, 1], [1.575, -0.425])} />
+      {/*<ContactShadows position={[0, -3.5, 0]} opacity={0.4} scale={15} blur={1.75} far={4.5} />*/}
+    </group>
+  )
+}
+
 export function Contact({ onReflow }) {
   const theme = useTheme()
   const { viewport } = useThree()
@@ -222,8 +241,20 @@ export function Contact({ onReflow }) {
           {contactData.description.toUpperCase()}
         </Text>
       </Box>
-      <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
-        <Box {...{ ...boxProps, maxWidth: 19, marginBottom: 1 }}>{(width, height) => <ContactForm width={width} height={height} />}</Box>
+      <Box marginLeft={1.5} marginRight={1.5} marginTop={0.5}>
+        <Text
+          italic
+          position-z={0.5}
+          fontSize={scale * 0.418}
+          lineHeight={1}
+          letterSpacing={0}
+          color={theme.palette.text.primary}
+          maxWidth={(viewport.width / 4) * 3}>
+          TAP THE LAPTOP TO REACH ME
+        </Text>
+      </Box>
+      <Box dir="row" align={'center'} width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
+        <Box {...{ ...boxProps, maxWidth: 19, marginBottom: 0.5 }}>{(width, height) => <ContactModel />}</Box>
       </Box>
     </Box>
   )

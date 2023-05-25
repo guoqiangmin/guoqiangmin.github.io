@@ -3,7 +3,7 @@ import { Box } from '@react-three/flex'
 import React from 'react'
 import { useTheme } from '../hooks/useTheme'
 import { Layercard } from '../components/Layercard'
-import Geo from '../components/Geo'
+// import Geo from '../components/Geo'
 import { useAspect } from '@react-three/drei'
 import * as THREE from 'three'
 
@@ -34,7 +34,7 @@ export function Home() {
           map={texture}
           textScaleFactor={scale}
         />
-        <Geo position={[bW / 2, -bH / 2, 2]} />
+        {/*<Geo position={[bW / 2, -bH / 2, 2]} />*/}
       </Box>
     </Box>
   )

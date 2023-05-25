@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Scroll, ScrollControls } from '@react-three/drei'
+import { Scroll, ScrollControls, Environment } from '@react-three/drei'
 import state from './store/state'
 import { WaterEffects } from './components/WaterEffects'
 import { useTheme } from './hooks/useTheme'
@@ -18,7 +18,7 @@ export default function App() {
   const onScroll = (e) => (state.top = e.target ? e.target.scrollTop : 0)
   useEffect(() => void onScroll({ target: scrollArea.current }), [])
   const [pages, setPages] = useState(0)
-  console.log('pages:', pages)
+  // console.log('pages:', pages)
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     const systemModeHandler = (event) => {
@@ -51,17 +51,17 @@ export default function App() {
         // onCreated={({ gl }) => gl.setClearColor(theme.palette.background.default)}
         linear={true}>
         <color attach="background" args={[theme.palette.background.default]} />
-        <pointLight position={[-10, -10, -10]} intensity={1} />
-        <ambientLight intensity={0.4} />
-        <spotLight
-          castShadow
-          angle={0.3}
-          penumbra={1}
-          position={[0, 10, 20]}
-          intensity={5}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
+        <pointLight position={[10, 10, 10]} intensity={1.5} color={'#f0f0f0'} />
+        {/*<ambientLight intensity={0.4} />*/}
+        {/*<spotLight*/}
+        {/*  castShadow*/}
+        {/*  angle={0.3}*/}
+        {/*  penumbra={1}*/}
+        {/*  position={[0, 10, 20]}*/}
+        {/*  intensity={5}*/}
+        {/*  shadow-mapSize-width={1024}*/}
+        {/*  shadow-mapSize-height={1024}*/}
+        {/*/>*/}
         {/*<fog attach="fog" args={['#202025', 0, 80]} />*/}
         <Suspense fallback={null}>
           <ScrollControls>
@@ -81,6 +81,7 @@ export default function App() {
               </div>
             </Scroll>
           </ScrollControls>
+          <Environment preset="city" />
         </Suspense>
         <WaterEffects />
       </Canvas>
