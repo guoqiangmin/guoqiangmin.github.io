@@ -8,11 +8,8 @@ import { useAspect } from '@react-three/drei'
 import * as THREE from 'three'
 
 const homeData = {
-  // text: 'Explore limitless possibilities\nfor digital transformation\nin IT with innovative vision.\nUnleash the power\nof the future today.',
   text: 'Explore limitless possibilities for digital transformation in IT with ignited innovative vision. Unleash the power of the future today.',
   depth: 0,
-  // color: '#cccccc',
-  // textColor: '#ffffff',
   image: '/images/home/1.jpg',
 }
 

@@ -4,7 +4,7 @@ import { HeightReporter } from '../components/HeightReporter'
 import Text from '../components/Text'
 import React, { useRef, useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
-import { Html } from '@react-three/drei'
+import { ContactShadows, Html } from '@react-three/drei'
 // import { RoundedRect } from '../components/RoundedRect'
 import styled from 'styled-components'
 import { useSpring } from '@react-spring/web'
@@ -188,9 +188,10 @@ function ContactModel() {
   }
 
   return (
-    <group rotation={[0, 0, 0]} scale={0.7} position-y={1} onClick={handleClick}>
-      <MacModel hinge={props.open.to([0, 1], [1.575, -0.425])} />
-      {/*<ContactShadows position={[0, -3.5, 0]} opacity={0.4} scale={15} blur={1.75} far={4.5} />*/}
+    <group rotation={[0, 0, 0]} scale={0.7} position-y={1.2} onClick={handleClick}>
+      <MacModel open={open} hinge={props.open.to([0, 1], [1.575, -0.425])} />
+      {/*<ContactShadows position={[0, -4.5, 0]} opacity={0.4} scale={20} blur={1.75} far={4.5} />*/}
+      <ContactShadows scale={10} position={[0, -4.5, 0]} far={1} blur={100} opacity={0.15} color="#204080" />
     </group>
   )
 }

@@ -4,7 +4,7 @@ import { useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { a as three } from '@react-spring/three'
 
-export function MacModel({ hinge, ...props }) {
+export function MacModel({ open, hinge, ...props }) {
   const group = useRef()
   // Load model
   const { nodes, materials } = useGLTF('/models/mac-draco.glb')
@@ -14,6 +14,10 @@ export function MacModel({ hinge, ...props }) {
   // Make it float in the air when it's opened
   useFrame((state) => {
     const t = state.clock.getElapsedTime()
+    // group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, open ? Math.cos(t / 10) / 10 + 0.25 : 0, 0.1)
+    // group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, open ? Math.sin(t / 10) / 4 : 0, 0.1)
+    // group.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, open ? Math.sin(t / 10) / 10 : 0, 0.1)
+    // group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, open ? (-2 + Math.sin(t)) / 3 : -3.25, 0.1)
     group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, Math.cos(t / 10) / 10 + 0.25, 0.1)
     group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, Math.sin(t / 10) / 4, 0.1)
     group.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, Math.sin(t / 10) / 10, 0.1)

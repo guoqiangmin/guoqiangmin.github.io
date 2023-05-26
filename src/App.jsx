@@ -8,7 +8,6 @@ import { Content } from './components/Content'
 import { useThemeSetting } from './contexts/theme'
 import { CustomCursor } from './components/CustomCursor'
 import { LoadingScreen } from './components/LoadingScreen'
-// import { TrailCursor } from './components/TrailCursor'
 
 export default function App() {
   const theme = useTheme()
@@ -18,7 +17,7 @@ export default function App() {
   const onScroll = (e) => (state.top = e.target ? e.target.scrollTop : 0)
   useEffect(() => void onScroll({ target: scrollArea.current }), [])
   const [pages, setPages] = useState(0)
-  // console.log('pages:', pages)
+
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     const systemModeHandler = (event) => {
@@ -52,17 +51,6 @@ export default function App() {
         linear={true}>
         <color attach="background" args={[theme.palette.background.default]} />
         <pointLight position={[10, 10, 10]} intensity={1.5} color={'#f0f0f0'} />
-        {/*<ambientLight intensity={0.4} />*/}
-        {/*<spotLight*/}
-        {/*  castShadow*/}
-        {/*  angle={0.3}*/}
-        {/*  penumbra={1}*/}
-        {/*  position={[0, 10, 20]}*/}
-        {/*  intensity={5}*/}
-        {/*  shadow-mapSize-width={1024}*/}
-        {/*  shadow-mapSize-height={1024}*/}
-        {/*/>*/}
-        {/*<fog attach="fog" args={['#202025', 0, 80]} />*/}
         <Suspense fallback={null}>
           <ScrollControls>
             <Scroll>

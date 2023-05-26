@@ -8,10 +8,6 @@ import { useTheme } from '../hooks/useTheme'
 import { CustomSlider } from '../components/CustomSlider'
 import { Html, useGLTF } from '@react-three/drei'
 import styled from 'styled-components'
-// import { IconArrowBackCircle } from '../components/icons/ArrowBackCircle'
-// import { IconArrowForwardCircle } from '../components/icons/ArrowForwardCircle'
-// import { useControls } from 'leva'
-// import { Depth, Fresnel, LayerMaterial } from 'lamina'
 
 const portfolioData = {
   tag: '01',
@@ -159,31 +155,6 @@ const FormWrapper = styled.div`
   }
 `
 
-/*
-const NavigationControls = styled.div`
-  font-size: 0.9em;
-  font-weight: 200;
-  margin-bottom: 1rem;
-  max-width: 15rem;
-  line-height: 1.5rem;
-  user-select: none;
-  color: ${(props) => props.color};
-`
-
-const ControlButton = styled.button`
-  appearance: none;
-  background: none;
-  border: none;
-  box-shadow: none;
-  padding: 5px;
-  transition: all 0.3s ease-in-out;
-  color: inherit;
-  &:hover {
-    color: ${(props) => props.hovercolor};
-  }
-`
-*/
-
 const Description = styled.div`
   font-size: 0.9em;
   font-weight: 200;
@@ -193,40 +164,6 @@ const Description = styled.div`
   user-select: none;
   color: ${(props) => props.color};
 `
-
-/*
-const Circle = forwardRef(({ children, opacity = 1, radius = 0.05, segments = 32, color = '#ff1050', ...props }, ref) => (
-  <mesh ref={ref} {...props}>
-    <circleGeometry args={[radius, segments]} />
-    <meshBasicMaterial transparent={opacity < 1} opacity={opacity} color={color} />
-    {children}
-  </mesh>
-))
-
-const Ring = ({ position }) => {
-  return (
-    <mesh position={position}>
-      <ringGeometry args={[0.35, 0.38, 64]} />
-      <meshPhongMaterial color="white" />
-    </mesh>
-  )
-}
-
-const Line = ({ position }) => {
-  const points = []
-  points.push(new THREE.Vector3(0, -0.25, 0))
-  points.push(new THREE.Vector3(-0.25, 0, 0))
-  points.push(new THREE.Vector3(0, 0.25, 0))
-
-  const lineGeometry = new THREE.BufferGeometry().setFromPoints(points)
-
-  return (
-    <line geometry={lineGeometry}>
-      <lineBasicMaterial attach="material" color={'#121212'} lineWidth={10} linecap={'round'} linejoin={'round'} />
-    </line>
-  )
-}
-*/
 
 const color = new THREE.Color()
 const scale = new THREE.Vector3()
@@ -243,9 +180,9 @@ const ArrowButton = (props) => {
     ref.current.material.color.lerp(color.set(hovered || down ? theme.palette.text.hover : theme.palette.text.primary), hovered || down ? 0.1 : 0.05)
 
     if (down) {
-      ref.current.scale.lerp(scale.set(0.075, 1.05, 0.525), 0.1)
+      ref.current.scale.lerp(scale.set(0.0375, 0.6, 0.375), 0.1)
     } else {
-      ref.current.scale.lerp(scale.set(0.05, 0.7, 0.35), 0.05)
+      ref.current.scale.lerp(scale.set(0.025, 0.4, 0.25), 0.05)
     }
   })
 
@@ -270,7 +207,7 @@ const ArrowButton = (props) => {
       {...props}
       ref={ref}
       geometry={nodes.Cube.geometry}
-      scale={[0.05, 0.7, 0.35]}
+      // scale={[0.05, 0.7, 0.35]}
       onPointerOver={handleOnPointerOver}
       onPointerOut={handleOnPointerOut}
       onPointerDown={handlePointerDown}
@@ -282,26 +219,29 @@ const ArrowButton = (props) => {
 
 export function SlideControl({ width, height, onNext, onPrev }) {
   const theme = useTheme()
-  const { gl } = useThree()
+  const { gl, viewport } = useThree()
+  const scale = Math.min(1, viewport.width / 16)
 
   return (
     <group>
       <mesh>
         <planeGeometry args={[width, height]} />
-        <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.secondary} linear={true} toneMapped={false} />
-        <ArrowButton rotation={[Math.PI / 2, 0, Math.PI / 2]} position={[-width / 2 + 1.65, height / 2 - 1.5, 0.1]} onClick={onPrev} />
-        <ArrowButton rotation={[Math.PI / 2, Math.PI, Math.PI / 2]} position={[-width / 2 + 3.5, height / 2 - 1.5, 0.1]} onClick={onNext} />
+        <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.primary} linear={true} toneMapped={false} />
+        <ArrowButton rotation={[Math.PI / 2, 0, Math.PI / 2]} position={[-width / 2 + 1.45, height / 2 - 1.5, 0.1]} onClick={onPrev} />
+        <ArrowButton rotation={[Math.PI / 2, Math.PI, Math.PI / 2]} position={[-width / 2 + 4.15, height / 2 - 1.5, 0.1]} onClick={onNext} />
+        <Text
+          italic
+          position={[-width / 2 + 2.25, height / 2 - 1.35, 0.1]}
+          fontSize={scale * 0.418}
+          lineHeight={1}
+          letterSpacing={0}
+          color={theme.palette.text.primary}
+          maxWidth={(viewport.width / 4) * 3}>
+          {'01/20'}
+        </Text>
       </mesh>
       <Html transform portal={{ current: gl.domElement.parentNode }} pointerEvents={'none'}>
         <FormWrapper className={'form-wrapper'}>
-          {/*<NavigationControls color={theme.palette.text.secondary}>*/}
-          {/*  <ControlButton style={{ marginLeft: '-7px' }} onClick={onPrev} hovercolor={theme.palette.text.hover}>*/}
-          {/*    <IconArrowBackCircle width={32} height={32} />*/}
-          {/*  </ControlButton>*/}
-          {/*  <ControlButton onClick={onNext} hovercolor={theme.palette.text.hover}>*/}
-          {/*    <IconArrowForwardCircle width={32} height={32} />*/}
-          {/*  </ControlButton>*/}
-          {/*</NavigationControls>*/}
           <Description color={theme.palette.text.primary}>
             Developed a responsive e-commerce website for a global fashion brand, implementing a sleek UI/UX design, seamless checkout process, and
             integrated payment gateway for enhanced customer experience and increased conversions. increased conversions. increased conversions.

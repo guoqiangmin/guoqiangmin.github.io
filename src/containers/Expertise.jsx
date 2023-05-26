@@ -97,7 +97,7 @@ function Rig({ children }) {
     ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, (state.mouse.y * Math.PI) / 10, 0.25)
   })
   return (
-    <group ref={ref} position={[0.5, 0.2, 0.5]}>
+    <group ref={ref} position={[-0.5, 0.2, 0.5]}>
       {children}
     </group>
   )
@@ -105,20 +105,16 @@ function Rig({ children }) {
 
 export function Keywords({ width, height }) {
   const theme = useTheme()
-  // const { progress } = useProgress()
-  // const { gl } = useThree()
 
   return (
     <group>
       <mesh>
-        {/*<shapeGeometry args={[RoundedRect(width, height, 0.15)]} />*/}
         <planeGeometry args={[width, height]} />
         <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.primary} linear={true} toneMapped={false} />
       </mesh>
       <Rig>
         <Cloud count={7} radius={3} />
       </Rig>
-      {/*<TrackballControls />*/}
     </group>
   )
 }
@@ -236,8 +232,8 @@ export function Expertise({ onReflow }) {
         </Text>
       </Box>
       <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
-        <Box {...{ ...boxProps, maxWidth: 11.43 }}>{(width, height) => <Keywords width={width} height={height} />}</Box>
         <Box {...{ ...boxProps, maxWidth: 7.07 }}>{(width, height) => <Skills width={width} height={height} />}</Box>
+        <Box {...{ ...boxProps, maxWidth: 11.43 }}>{(width, height) => <Keywords width={width} height={height} />}</Box>
       </Box>
     </Box>
   )

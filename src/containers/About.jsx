@@ -106,8 +106,8 @@ export function About({ onReflow }) {
         </Text>
       </Box>
       <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
-        <Box {...{ ...boxProps, maxWidth: 7.07 }}>{(width, height) => <FadingImage image={aboutData.image} width={width} height={height} />}</Box>
         <Box {...{ ...boxProps, maxWidth: 11.43 }}>{(width, height) => <Career width={width} height={height} />}</Box>
+        <Box {...{ ...boxProps, maxWidth: 7.07 }}>{(width, height) => <FadingImage image={aboutData.image} width={width} height={height} />}</Box>
       </Box>
     </Box>
   )
