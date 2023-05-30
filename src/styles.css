@@ -30,6 +30,7 @@ body {
   overflow: auto;
 }
 
+/* Loading Container */
 .loading {
   position: fixed;
   top: 0px;
@@ -41,16 +42,11 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: opacity 2s;
   z-index: 99999;
 }
 
 .loading.loaded {
-  opacity: 0;
-}
-
-.loading.hidden {
-  display: none;
+  /*opacity: 0;*/
 }
 
 .loading-bar-container {
@@ -74,6 +70,7 @@ body {
   font-weight: 700;
 }
 
+/* Trailing Cursor */
 .hooksMain {
   position: absolute;
   /*width: 100%;*/
@@ -111,6 +108,7 @@ body {
   height: 50px;
 }
 
+/* Custom Cursor */
 .main-cursor,
 .secondary-cursor {
   z-index: 10000;
@@ -198,6 +196,7 @@ body {
   animation: scaleUp 1s cubic-bezier(0.77, 0, 0.175, 1) 0s forwards;
 }
 
+/* Default Animation */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -297,7 +296,7 @@ body.loaded .overlay-container {
 }
 
 body.loaded .loading-container {
-  opacity: 0;
+  /*opacity: 0;*/
 }
 
 body.loaded .form-wrapper {
@@ -309,5 +308,45 @@ body.enable-html .form-wrapper {
 }
 
 body.enable-html .loading-container {
-  display: none;
+  /*display: none;*/
 }
+
+/* Page Transition */
+.pt-page-moveToTopEasing {
+  -webkit-animation: moveToTop .7s ease-in-out both;
+  animation: moveToTop .7s ease-in-out both;
+}
+
+.pt-page-moveToBottomEasing {
+  -webkit-animation: moveToBottom .7s ease-in-out both;
+  animation: moveToBottom .7s ease-in-out both;
+}
+
+@-webkit-keyframes moveToTop {
+  from { }
+  to { -webkit-transform: translateY(-100%); }
+}
+
+@keyframes moveToTop {
+  from { }
+  to { -webkit-transform: translateY(-100%); transform: translateY(-100%); }
+}
+
+@-webkit-keyframes moveFromTop {
+  from { -webkit-transform: translateY(-100%); }
+}
+
+@keyframes moveFromTop {
+  from { -webkit-transform: translateY(-100%); transform: translateY(-100%); }
+}
+
+@-webkit-keyframes moveToBottom {
+  from { }
+  to { -webkit-transform: translateY(100%); }
+}
+
+@keyframes moveToBottom {
+  from { }
+  to { -webkit-transform: translateY(100%); transform: translateY(100%); }
+}
+
