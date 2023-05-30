@@ -55,7 +55,7 @@ const MenuOverlay = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 99999;
+  z-index: 9998;
   -webkit-animation: moveToTop 0.5s ease-in-out both;
   animation: moveToTop 0.5s ease-in-out both;
 
@@ -95,7 +95,7 @@ const BottomLeft = styled.div`
   position: absolute;
   bottom: 1rem;
   left: 1rem;
-  
+
   & .header__arrow {
     display: block;
     height: 8.7rem;
@@ -104,7 +104,7 @@ const BottomLeft = styled.div`
     transform: translate(0px, 0px);
     animation: bounce 1.5s infinite;
 
-    & .header__arrow__text {
+    .header__arrow__text {
       color: ${(props) => props.color || '#fff'};
       writing-mode: tb-rl;
       white-space: nowrap;
@@ -114,9 +114,8 @@ const BottomLeft = styled.div`
       font-family: 'Roboto';
       font-weight: 300;
     }
-    }
 
-    & .header__arrow__dash {
+    .header__arrow__dash {
       border-right: 2px solid ${(props) => props.color || '#fff'};
       height: 2.5rem;
       left: 50%;
@@ -125,7 +124,7 @@ const BottomLeft = styled.div`
       transform: translate(-50%, 0);
     }
 
-    & .header__arrow__triangle {
+    .header__arrow__triangle {
       border-color: ${(props) => props.color || '#fff'};
       border-style: solid;
       border-width: 2px 2px 0 0;
@@ -158,7 +157,9 @@ const Hamburger = styled.div`
   top: 1.25rem;
   right: 1rem;
   transition: all 0.3s ease-out;
-  z-index: 100000;
+  z-index: 9999;
+  display: none;
+
   div.menu-icon__line {
     position: relative;
     width: 24px;
@@ -176,7 +177,8 @@ const Hamburger = styled.div`
 
     &.menu-icon__line-right {
       width: 16.5px;
-      float: right;
+      //float: right;
+      transform: translateX(7px);
       -webkit-transition: all 200ms linear;
       transition: all 200ms linear;
     }
@@ -195,6 +197,7 @@ const Hamburger = styled.div`
 
     .menu-icon__line-right {
       width: 24px !important;
+      transform: translateX(0px) !important;
     }
   }
 
@@ -206,15 +209,15 @@ const Hamburger = styled.div`
 
     .menu-icon__line-left {
       width: 15px;
-      -webkit-transform: translate(2px, 4px) rotate(45deg);
-      transform: translate(1px, 5px) rotate(45deg);
+      -webkit-transform: translate(1px, 5px) rotate(45deg) !important;
+      transform: translate(1px, 5px) rotate(45deg) !important;
     }
 
     .menu-icon__line-right {
       width: 15px;
       float: right;
-      -webkit-transform: translate(-3px, -3.5px) rotate(45deg);
-      transform: translate(-1px, -4.5px) rotate(45deg);
+      -webkit-transform: translate(7px, -4.5px) rotate(45deg) !important;
+      transform: translate(7px, -4.5px) rotate(45deg) !important;
     }
 
     &:hover {
@@ -234,7 +237,7 @@ const TopRight = styled.div`
   font-family: 'Roboto';
   font-weight: 300;
   position: absolute;
-  display: none;
+  display: flex;
   flex-direction: column;
   top: 1.25rem;
   right: 1rem;
