@@ -5,20 +5,84 @@ import { IconLinkedIn } from './icons/LinkedIn'
 import { IconGithub } from './icons/Github'
 import state from '../store/state'
 import React, { Fragment, useState } from 'react'
+import { AnimatePresence, motion, useCycle } from 'framer-motion'
 
-const OverlayContainer = styled.div`
-  transition: opacity 2s;
-  opacity: 0;
+const links = [
+  { name: 'Home', to: '#', id: 1 },
+  { name: 'Work', to: '#', id: 2 },
+  { name: 'About', to: '#', id: 3 },
+  { name: 'Expertise', to: '#', id: 4 },
+  { name: 'Contact', to: '#', id: 5 },
+]
 
-  &.loaded {
-    opacity: 1;
+const itemVariants = {
+  closed: { x: -16, opacity: 0 },
+  open: { x: 0, opacity: 1 },
+}
+
+const itemTransition = {
+  opacity: { duration: 0.2 },
+}
+
+const menuVariants = {
+  closed: {
+    scale: 0,
+    transition: {
+      delay: 0.15,
+    },
+  },
+  open: {
+    scale: 1,
+    transition: {
+      type: 'spring',
+      duration: 0.4,
+      delayChildren: 0.4,
+      staggerChildren: 0.05,
+    },
+  },
+}
+
+const OverlayContainer = styled.div``
+
+const MenuOverlay = styled.div`
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: #121212;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  -webkit-animation: moveToTop 0.5s ease-in-out both;
+  animation: moveToTop 0.5s ease-in-out both;
+
+  &.open {
+    -webkit-animation: moveFromTop 0.2s ease-in-out both;
+    animation: moveFromTop 0.2s ease-in-out both;
+  }
+
+  .nav-container {
+    margin: 4.5rem 1.4rem;
+    text-align: center;
+
+    a {
+      color: #f9fafb;
+      text-decoration: none;
+      font-family: 'Roboto';
+      font-size: 4rem;
+      font-weight: 800;
+      display: block;
+      margin: 20px;
+      text-transform: uppercase;
+    }
   }
 `
 
 const TopLeft = styled.div`
   position: absolute;
-  //top: calc(1.5vw - 10px);
-  //left: 1.5vw;
   top: 1rem;
   left: 1rem;
   font-family: LEMON MILK, sans-serif;
@@ -29,13 +93,11 @@ const TopLeft = styled.div`
 
 const BottomLeft = styled.div`
   position: absolute;
-  //bottom: 1.5vw;
-  //left: 1.5vw;
   bottom: 1rem;
   left: 1rem;
+  
   & .header__arrow {
     display: block;
-    //height: 2.7rem;
     height: 8.7rem;
     margin-top: 0rem;
     width: 1.7rem;
@@ -45,7 +107,6 @@ const BottomLeft = styled.div`
     & .header__arrow__text {
       color: ${(props) => props.color || '#fff'};
       writing-mode: tb-rl;
-      //transform: rotate(90deg);
       white-space: nowrap;
       display: block;
       bottom: 0;
@@ -60,7 +121,6 @@ const BottomLeft = styled.div`
       height: 2.5rem;
       left: 50%;
       position: absolute;
-      //top: 0;
       top: 6rem;
       transform: translate(-50%, 0);
     }
@@ -82,8 +142,6 @@ const BottomLeft = styled.div`
 
 const BottomRight = styled.div`
   position: absolute;
-  //bottom: 1.5vw;
-  //right: 1.5vw;
   bottom: 1rem;
   right: 1rem;
   font-family: 'Roboto';
@@ -91,20 +149,16 @@ const BottomRight = styled.div`
   line-height: 1em;
   //letter-spacing: -0.01em;
   font-size: 12px;
-  //text-align: right;
   color: ${(props) => props.color || '#fff'};
 `
 
 const Hamburger = styled.div`
   position: absolute;
-  //display: none;
   flex-direction: column;
-  //top: 1.5vw;
-  //right: 1.5vw;
   top: 1.25rem;
   right: 1rem;
   transition: all 0.3s ease-out;
-
+  z-index: 100000;
   div.menu-icon__line {
     position: relative;
     width: 24px;
@@ -182,8 +236,6 @@ const TopRight = styled.div`
   position: absolute;
   display: none;
   flex-direction: column;
-  //top: 1.5vw;
-  //right: 1.5vw;
   top: 1.25rem;
   right: 1rem;
 
@@ -200,7 +252,7 @@ const TopRight = styled.div`
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    //height: 100%;
+
     & > .nav__item {
       display: -webkit-box;
       display: -ms-flexbox;
@@ -208,10 +260,11 @@ const TopRight = styled.div`
       -webkit-box-align: center;
       -ms-flex-align: center;
       align-items: center;
-      //height: 100%;
+
       &:not(:first-child) {
         margin-left: 18px;
       }
+
       & > .nav__link {
         color: ${(props) => props.color || '#fff'};
         text-decoration: none;
@@ -222,6 +275,7 @@ const TopRight = styled.div`
         height: 1.7em;
         font-size: 16px;
         line-height: 1.7em;
+
         &:before {
           content: '';
           position: absolute;
@@ -229,7 +283,6 @@ const TopRight = styled.div`
           bottom: 0;
           width: 100%;
           height: 1px;
-          //background-color: #fff;
           -webkit-transform: scale(0, 1);
           transform: scale(0, 1);
           -webkit-transform-origin: right top;
@@ -239,6 +292,7 @@ const TopRight = styled.div`
           transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
           background-color: ${(props) => props.bgcolor || '#fff'};
         }
+
         &:hover:before,
         &:focus:before {
           -webkit-transform-origin: left top;
@@ -264,49 +318,64 @@ export default function Overlay() {
   }
 
   return (
-    <OverlayContainer className={`overlay-container`}>
-      <TopLeft>
-        <LogoSimple color={theme.palette.text.secondary} />
-      </TopLeft>
-      <BottomLeft color={theme.palette.text.secondary}>
-        <div className="header__arrow">
-          <div className="header__arrow__text">scroll down</div>
-          <div className="header__arrow__dash"></div>
-          <div className="header__arrow__triangle"></div>
-        </div>
-      </BottomLeft>
-      <BottomRight>
-        <a target="_blank" href="https://www.linkedin.com/in/guoqiang-min" rel="noreferrer">
-          <IconLinkedIn width={30} height={30} color={theme.palette.text.secondary} />
-        </a>
-        <a target="_blank" href="https://github.com/guoqiangmin" rel="noreferrer" style={{ marginLeft: '10px' }}>
-          <IconGithub width={30} height={30} color={theme.palette.text.secondary} />
-        </a>
-      </BottomRight>
-      <TopRight color={theme.palette.text.secondary} bgcolor={theme.palette.text.secondary}>
-        <nav className="header__nav">
-          <ul className="nav__list">
-            {Object.keys(state.navs).map((keyName, index) => (
-              <Fragment key={index}>
-                {state.navs[keyName].display ? (
-                  <li className="nav__item">
-                    <a href={'#' + keyName} className="nav__link">
-                      {keyName}
-                    </a>
-                  </li>
-                ) : (
-                  <></>
-                )}
-              </Fragment>
-            ))}
-          </ul>
-        </nav>
-      </TopRight>
-      <Hamburger color={theme.palette.text.secondary} className={`mobile-nav ${menuOpenClass}`} onClick={toggleClass}>
-        <div className={'menu-icon__line menu-icon__line-left'} />
-        <div className={'menu-icon__line'} />
-        <div className={'menu-icon__line menu-icon__line-right'} />
-      </Hamburger>
-    </OverlayContainer>
+    <>
+      <OverlayContainer className={`overlay-container`}>
+        <TopLeft>
+          <LogoSimple color={theme.palette.text.secondary} />
+        </TopLeft>
+        <BottomLeft color={theme.palette.text.secondary}>
+          <div className="header__arrow">
+            <div className="header__arrow__text">scroll down</div>
+            <div className="header__arrow__dash"></div>
+            <div className="header__arrow__triangle"></div>
+          </div>
+        </BottomLeft>
+        <BottomRight>
+          <a target="_blank" href="https://www.linkedin.com/in/guoqiang-min" rel="noreferrer">
+            <IconLinkedIn width={30} height={30} color={theme.palette.text.secondary} />
+          </a>
+          <a target="_blank" href="https://github.com/guoqiangmin" rel="noreferrer" style={{ marginLeft: '10px' }}>
+            <IconGithub width={30} height={30} color={theme.palette.text.secondary} />
+          </a>
+        </BottomRight>
+        <TopRight color={theme.palette.text.secondary} bgcolor={theme.palette.text.secondary}>
+          <nav className="header__nav">
+            <ul className="nav__list">
+              {Object.keys(state.navs).map((keyName, index) => (
+                <Fragment key={index}>
+                  {state.navs[keyName].display ? (
+                    <li className="nav__item">
+                      <a href={'#' + keyName} className="nav__link">
+                        {keyName}
+                      </a>
+                    </li>
+                  ) : (
+                    <></>
+                  )}
+                </Fragment>
+              ))}
+            </ul>
+          </nav>
+        </TopRight>
+        <Hamburger color={theme.palette.text.secondary} className={`mobile-nav ${menuOpenClass}`} onClick={toggleClass}>
+          <div className={'menu-icon__line menu-icon__line-left'} />
+          <div className={'menu-icon__line'} />
+          <div className={'menu-icon__line menu-icon__line-right'} />
+        </Hamburger>
+      </OverlayContainer>
+      <MenuOverlay className={`menu-overlay ${menuOpenClass}`}>
+        <AnimatePresence>
+          {menuOpenClass && (
+            <motion.div className="nav-container" initial="closed" animate="open" exit="closed" variants={menuVariants}>
+              {links.map(({ name, to, id }) => (
+                <motion.a key={id} href={to} whileHover={{ scale: 1.1 }} variants={itemVariants} transition={itemTransition}>
+                  {name}
+                </motion.a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </MenuOverlay>
+    </>
   )
 }
