@@ -17,8 +17,10 @@ const OverlayContainer = styled.div`
 
 const TopLeft = styled.div`
   position: absolute;
-  top: calc(1.5vw - 10px);
-  left: 1.5vw;
+  //top: calc(1.5vw - 10px);
+  //left: 1.5vw;
+  top: 1rem;
+  left: 1rem;
   font-family: LEMON MILK, sans-serif;
   font-weight: 300;
   font-size: min(10vw, 1.25em);
@@ -27,8 +29,10 @@ const TopLeft = styled.div`
 
 const BottomLeft = styled.div`
   position: absolute;
-  bottom: 1.5vw;
-  left: 1.5vw;
+  //bottom: 1.5vw;
+  //left: 1.5vw;
+  bottom: 1rem;
+  left: 1rem;
   & .header__arrow {
     display: block;
     //height: 2.7rem;
@@ -78,9 +82,11 @@ const BottomLeft = styled.div`
 
 const BottomRight = styled.div`
   position: absolute;
-  bottom: 1.5vw;
-  right: 1.5vw;
-  font-family: 'Inter';
+  //bottom: 1.5vw;
+  //right: 1.5vw;
+  bottom: 1rem;
+  right: 1rem;
+  font-family: 'Roboto';
   font-weight: 400;
   line-height: 1em;
   //letter-spacing: -0.01em;
@@ -89,20 +95,30 @@ const BottomRight = styled.div`
   color: ${(props) => props.color || '#fff'};
 `
 
-// const Hamburger = styled.div`
-//   position: absolute;
-//   display: flex;
-//   flex-direction: column;
-//   top: 1.5vw;
-//   right: 1.5vw;
-//   & > div {
-//     position: relative;
-//     width: 24px;
-//     height: 2px;
-//     background: ${(props) => props.color || '#fff'};
-//     margin-bottom: 6px;
-//   }
-// `
+const Hamburger = styled.div`
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  //top: 1.5vw;
+  //right: 1.5vw;
+  top: 1.25rem;
+  right: 1rem;
+  & > div {
+    position: relative;
+    width: 24px;
+    height: 1.5px;
+    background: ${(props) => props.color || '#fff'};
+    margin-bottom: 6px;
+  }
+
+  & > div:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+`
 
 const TopRight = styled.div`
   font-family: 'Roboto';
@@ -110,8 +126,10 @@ const TopRight = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  top: 1.5vw;
-  right: 1.5vw;
+  //top: 1.5vw;
+  //right: 1.5vw;
+  top: 1.25rem;
+  right: 1rem;
 
   & .nav__list {
     list-style: none;
@@ -175,6 +193,10 @@ const TopRight = styled.div`
       }
     }
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 
 export default function Overlay() {
@@ -219,11 +241,11 @@ export default function Overlay() {
           </ul>
         </nav>
       </TopRight>
-      {/*<Hamburger color={theme.palette.text.secondary}>*/}
-      {/*  <div />*/}
-      {/*  <div />*/}
-      {/*  <div />*/}
-      {/*</Hamburger>*/}
+      <Hamburger color={theme.palette.text.secondary}>
+        <div />
+        <div />
+        <div />
+      </Hamburger>
     </OverlayContainer>
   )
 }
