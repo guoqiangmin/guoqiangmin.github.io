@@ -4,7 +4,7 @@ import { useTheme } from '../hooks/useTheme'
 import { IconLinkedIn } from './icons/LinkedIn'
 import { IconGithub } from './icons/Github'
 import state from '../store/state'
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 
 const OverlayContainer = styled.div`
   transition: opacity 2s;
@@ -97,22 +97,78 @@ const BottomRight = styled.div`
 
 const Hamburger = styled.div`
   position: absolute;
-  display: none;
+  //display: none;
   flex-direction: column;
   //top: 1.5vw;
   //right: 1.5vw;
   top: 1.25rem;
   right: 1rem;
-  & > div {
+  transition: all 0.3s ease-out;
+
+  div.menu-icon__line {
     position: relative;
     width: 24px;
     height: 1.5px;
     background: ${(props) => props.color || '#fff'};
     margin-bottom: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.5s ease, -webkit-transform 0.2s ease;
+
+    &.menu-icon__line-left {
+      width: 16.5px;
+      -webkit-transition: all 200ms linear;
+      transition: all 200ms linear;
+    }
+
+    &.menu-icon__line-right {
+      width: 16.5px;
+      float: right;
+      -webkit-transition: all 200ms linear;
+      transition: all 200ms linear;
+    }
   }
 
-  & > div:last-child {
+  div.menu-icon__line:last-child {
     margin-bottom: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    .menu-icon__line-left {
+      width: 24px !important;
+    }
+
+    .menu-icon__line-right {
+      width: 24px !important;
+    }
+  }
+
+  &.open {
+    .menu-icon__line {
+      -webkit-transform: translate(0px, 0px) rotate(-45deg);
+      transform: translate(0px, 0px) rotate(-45deg);
+    }
+
+    .menu-icon__line-left {
+      width: 15px;
+      -webkit-transform: translate(2px, 4px) rotate(45deg);
+      transform: translate(1px, 5px) rotate(45deg);
+    }
+
+    .menu-icon__line-right {
+      width: 15px;
+      float: right;
+      -webkit-transform: translate(-3px, -3.5px) rotate(45deg);
+      transform: translate(-1px, -4.5px) rotate(45deg);
+    }
+
+    &:hover {
+      .menu-icon__line-left,
+      .menu-icon__line-right {
+        width: 15px !important;
+      }
+    }
   }
 
   @media (max-width: 768px) {
@@ -124,7 +180,7 @@ const TopRight = styled.div`
   font-family: 'Roboto';
   font-weight: 300;
   position: absolute;
-  display: flex;
+  display: none;
   flex-direction: column;
   //top: 1.5vw;
   //right: 1.5vw;
@@ -201,6 +257,11 @@ const TopRight = styled.div`
 
 export default function Overlay() {
   const theme = useTheme()
+  const [menuOpenClass, setMenuOpenClass] = useState('')
+
+  const toggleClass = () => {
+    setMenuOpenClass((prev) => (prev === '' ? 'open' : ''))
+  }
 
   return (
     <OverlayContainer className={`overlay-container`}>
@@ -241,10 +302,10 @@ export default function Overlay() {
           </ul>
         </nav>
       </TopRight>
-      <Hamburger color={theme.palette.text.secondary}>
-        <div />
-        <div />
-        <div />
+      <Hamburger color={theme.palette.text.secondary} className={`mobile-nav ${menuOpenClass}`} onClick={toggleClass}>
+        <div className={'menu-icon__line menu-icon__line-left'} />
+        <div className={'menu-icon__line'} />
+        <div className={'menu-icon__line menu-icon__line-right'} />
       </Hamburger>
     </OverlayContainer>
   )
