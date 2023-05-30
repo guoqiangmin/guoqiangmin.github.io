@@ -11,32 +11,50 @@ const state = {
   sections: 10,
   threshold: 4,
   mouse: [0, 0],
-  navs: {
-    home: {
+  navs: [
+    {
+      id: 1,
+      name: 'home',
+      url: '#home',
       pageSize: 5.2,
       display: true,
     },
-    work: {
+    {
+      id: 2,
+      name: 'work',
+      url: '#work',
       pageSize: 0.96,
       display: true,
     },
-    about: {
+    {
+      id: 3,
+      name: 'about',
+      url: '#about',
       pageSize: 0.96,
       display: true,
     },
-    expertise: {
+    {
+      id: 4,
+      name: 'expertise',
+      url: '#expertise',
       pageSize: 0.96,
       display: true,
     },
-    divider: {
+    {
+      id: 0,
+      name: 'divider',
+      url: '#divider',
       pageSize: 1,
       display: false,
     },
-    contact: {
+    {
+      id: 5,
+      name: 'contact',
+      url: '#contact',
       pageSize: 0.95,
       display: true,
     },
-  },
+  ],
 }
 
 export default state

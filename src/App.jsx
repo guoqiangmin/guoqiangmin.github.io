@@ -63,8 +63,8 @@ export default function App() {
                 onScroll={onScroll}
                 onPointerMove={(e) => (state.mouse = [(e.clientX / window.innerWidth) * 2 - 1, (e.clientY / window.innerHeight) * 2 - 1])}>
                 {/*<div style={{ height: `${pages * 100}vh` }} />*/}
-                {Object.keys(state.navs).map((keyName, index) => (
-                  <div key={index} id={keyName} style={{ height: `${((state.navs[keyName].pageSize * pages) / state.sections) * 100}vh` }} />
+                {state.navs.map(({ name, pageSize, id }) => (
+                  <div key={id} id={name} style={{ height: `${((pageSize * pages) / state.sections) * 100}vh` }} />
                 ))}
               </div>
             </Scroll>

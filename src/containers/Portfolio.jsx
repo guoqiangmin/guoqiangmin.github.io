@@ -287,7 +287,7 @@ export function SlideControl({ width, height, items, activeIndex, isFirstClick, 
           {`${slideIndex}/${items.length}`}
         </Text>
       </mesh>
-      <Html transform portal={{ current: gl.domElement.parentNode }} pointerEvents={'none'}>
+      <Html transform portal={{ current: gl.domElement.parentNode }} pointerEvents={'none'} zIndexRange={[1000, 9000]}>
         <FormWrapper className={'form-wrapper'}>
           <Title color={theme.palette.text.primary}>{items[slideIndex - 1].title}:</Title>
           <Description color={theme.palette.text.primary}>{items[slideIndex - 1].description}</Description>

@@ -37,22 +37,17 @@ const Description = styled.div`
 
 export function Career({ width, height }) {
   const theme = useTheme()
-  const { gl, viewport } = useThree()
+  const { gl } = useThree()
   // const scale = Math.min(1, viewport.width / 16)
-  console.log('viewport width', viewport.width, width)
+  // console.log('viewport width', viewport.width, width)
 
   return (
     <mesh>
-      {/*<shapeGeometry args={[RoundedRect(width, height, 0.15)]} />*/}
       <planeGeometry args={[width, height]} />
       <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.primary} linear={true} toneMapped={false} />
-      <Html transform portal={{ current: gl.domElement.parentNode }} pointerEvents={'none'}>
+      <Html transform portal={{ current: gl.domElement.parentNode }} pointerEvents={'none'} zIndexRange={[1000, 9000]}>
         <FormWrapper className={'form-wrapper'}>
-          <Description color={theme.palette.text.primary}>
-            I am a highly productive senior frontend engineer/developer with 8+ years of diverse industry experience. My expertise lies in building
-            stunning UI/UX, optimizing performance, and solving complex problems. As a strong team player, I'm always up-to-date with the latest
-            technologies and best practices in software development.
-          </Description>
+          <Description color={theme.palette.text.primary}>{aboutData.detail}</Description>
         </FormWrapper>
       </Html>
     </mesh>

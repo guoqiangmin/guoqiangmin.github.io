@@ -130,7 +130,7 @@ export function Skills({ width, height }) {
         {/*<shapeGeometry args={[RoundedRect(width, height, 0.15)]} />*/}
         <planeGeometry args={[width, height]} />
         <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.secondary} linear={true} toneMapped={false} />
-        <Html transform portal={{ current: gl.domElement.parentNode }} pointerEvents={'none'}>
+        <Html transform portal={{ current: gl.domElement.parentNode }} pointerEvents={'none'} zIndexRange={[1000, 9000]}>
           <FormWrapper className={'form-wrapper'}>
             <SkillList color={theme.palette.text.primary}>
               <SkillListItem>

@@ -5,15 +5,7 @@ import { IconLinkedIn } from './icons/LinkedIn'
 import { IconGithub } from './icons/Github'
 import state from '../store/state'
 import React, { Fragment, useState } from 'react'
-import { AnimatePresence, motion, useCycle } from 'framer-motion'
-
-const links = [
-  { name: 'Home', to: '#', id: 1 },
-  { name: 'Work', to: '#', id: 2 },
-  { name: 'About', to: '#', id: 3 },
-  { name: 'Expertise', to: '#', id: 4 },
-  { name: 'Contact', to: '#', id: 5 },
-]
+import { AnimatePresence, motion } from 'framer-motion'
 
 const itemVariants = {
   closed: { x: -16, opacity: 0 },
@@ -344,12 +336,12 @@ export default function Overlay() {
         <TopRight color={theme.palette.text.secondary} bgcolor={theme.palette.text.secondary}>
           <nav className="header__nav">
             <ul className="nav__list">
-              {Object.keys(state.navs).map((keyName, index) => (
-                <Fragment key={index}>
-                  {state.navs[keyName].display ? (
+              {state.navs.map(({ name, url, id, display }) => (
+                <Fragment key={id}>
+                  {display ? (
                     <li className="nav__item">
-                      <a href={'#' + keyName} className="nav__link">
-                        {keyName}
+                      <a href={url} className="nav__link">
+                        {name}
                       </a>
                     </li>
                   ) : (
@@ -370,10 +362,16 @@ export default function Overlay() {
         <AnimatePresence>
           {menuOpenClass && (
             <motion.div className="nav-container" initial="closed" animate="open" exit="closed" variants={menuVariants}>
-              {links.map(({ name, to, id }) => (
-                <motion.a key={id} href={to} whileHover={{ scale: 1.1 }} variants={itemVariants} transition={itemTransition}>
-                  {name}
-                </motion.a>
+              {state.navs.map(({ name, url, id, display }) => (
+                <Fragment key={id}>
+                  {display ? (
+                    <motion.a href={url} whileHover={{ scale: 1.1 }} variants={itemVariants} transition={itemTransition} onClick={toggleClass}>
+                      {name}
+                    </motion.a>
+                  ) : (
+                    <></>
+                  )}
+                </Fragment>
               ))}
             </motion.div>
           )}
