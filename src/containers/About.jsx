@@ -33,6 +33,10 @@ const Description = styled.div`
   line-height: 1.5rem;
   user-select: none;
   color: ${(props) => props.color};
+
+  @media (max-width: 1280px) {
+    max-width: 13rem;
+  }
 `
 
 export function Career({ width, height }) {
@@ -60,9 +64,9 @@ export function About({ onReflow }) {
   const boxProps = {
     centerAnchor: true,
     grow: 1,
-    marginTop: 0.75,
-    marginLeft: 0.25,
-    marginRight: 0.25,
+    marginTop: 0, //0.75,
+    marginLeft: 0, // 0.25
+    marginRight: 0, // 0.25
     width: 'auto',
     height: 'auto',
     minWidth: 6,
@@ -73,7 +77,7 @@ export function About({ onReflow }) {
   const scale = Math.min(1, viewport.width / 16)
 
   return (
-    <Box dir="column" align={'center'} justify="flex-start" marginLeft={2} marginRight={2} marginTop={2} height="auto">
+    <Box dir="column" align={'center'} justify="flex-start" marginTop={2 * scale} height="auto">
       <HeightReporter onReflow={onReflow} />
       <Box marginLeft={1.5} marginRight={1.5}>
         <Text
@@ -92,7 +96,7 @@ export function About({ onReflow }) {
         <Text
           italic
           position-z={0.5}
-          fontSize={scale * 0.418}
+          fontSize={scale < 0.5 ? 0.25 : scale * 0.418}
           lineHeight={1}
           letterSpacing={0}
           color={theme.palette.text.neutral}
@@ -100,7 +104,7 @@ export function About({ onReflow }) {
           {aboutData.description.toUpperCase()}
         </Text>
       </Box>
-      <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
+      <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap" marginTop={0.4 * scale}>
         <Box {...{ ...boxProps, maxWidth: 11.43 }}>{(width, height) => <Career width={width} height={height} />}</Box>
         <Box {...{ ...boxProps, maxWidth: 7.07 }}>{(width, height) => <FadingImage image={aboutData.image} width={width} height={height} />}</Box>
       </Box>

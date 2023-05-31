@@ -179,6 +179,7 @@ export function ContactForm({ width, height }) {
 }
 
 function ContactModel() {
+  const { viewport } = useThree()
   const [open, setOpen] = useState(false)
   const props = useSpring({ open: Number(open) })
   const handleClick = (e) => {
@@ -186,9 +187,10 @@ function ContactModel() {
     setOpen(!open)
     window.location.href = 'mailto:minguoqiang88@gmail.com'
   }
+  const scale = Math.min(1, viewport.width / 16)
 
   return (
-    <group rotation={[0, 0, 0]} scale={0.7} position-y={1.2} onClick={handleClick}>
+    <group rotation={[0, 0, 0]} scale={scale < 0.5 ? 0.5 : 0.618 * scale} position-y={1.2} onClick={handleClick}>
       <MacModel open={open} hinge={props.open.to([0, 1], [1.575, -0.425])} />
       {/*<ContactShadows position={[0, -4.5, 0]} opacity={0.4} scale={20} blur={1.75} far={4.5} />*/}
       <ContactShadows scale={10} position={[0, -4.5, 0]} far={1} blur={100} opacity={0.15} color="#204080" />
@@ -215,7 +217,7 @@ export function Contact({ onReflow }) {
   const scale = Math.min(1, viewport.width / 16)
 
   return (
-    <Box dir="column" align={'center'} justify="flex-start" marginLeft={2} marginRight={2} marginBottom={2} height="auto" minHeight={'70%'}>
+    <Box dir="column" align={'center'} justify="flex-start" marginBottom={2} height="auto" minHeight={'70%'}>
       <HeightReporter onReflow={onReflow} />
       <Box marginLeft={1.5} marginRight={1.5}>
         <Text
@@ -234,7 +236,7 @@ export function Contact({ onReflow }) {
         <Text
           italic
           position-z={0.5}
-          fontSize={scale * 0.418}
+          fontSize={scale < 0.5 ? 0.25 : scale * 0.418}
           lineHeight={1}
           letterSpacing={0}
           color={theme.palette.text.neutral}
@@ -246,7 +248,7 @@ export function Contact({ onReflow }) {
         <Text
           italic
           position-z={0.5}
-          fontSize={scale * 0.418}
+          fontSize={scale < 0.5 ? 0.25 : scale * 0.418}
           lineHeight={1}
           letterSpacing={0}
           color={theme.palette.text.primary}
@@ -254,7 +256,7 @@ export function Contact({ onReflow }) {
           TAP THE LAPTOP TO REACH ME
         </Text>
       </Box>
-      <Box dir="row" align={'center'} width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
+      <Box dir="row" align={'center'} width="100%" height="auto" justify={'center'} grow={1} wrap="wrap" marginTop={0}>
         <Box {...{ ...boxProps, maxWidth: 19, marginBottom: 0.5 }}>{(width, height) => <ContactModel />}</Box>
       </Box>
     </Box>

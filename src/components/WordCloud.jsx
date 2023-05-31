@@ -5,10 +5,10 @@ import { Text } from '@react-three/drei'
 import randomWord from 'random-words'
 import { useTheme } from '../hooks/useTheme'
 
-function Word({ children, ...props }) {
+function Word({ children, fontSize, ...props }) {
   const theme = useTheme()
   const color = new THREE.Color()
-  const fontProps = { font: 'fonts/Roboto-Bold.ttf', fontSize: 0.5, letterSpacing: -0.05, lineHeight: 2, 'material-toneMapped': false }
+  const fontProps = { font: 'fonts/Roboto-Bold.ttf', fontSize: fontSize, letterSpacing: -0.05, lineHeight: 2, 'material-toneMapped': false }
   const ref = useRef()
   const [hovered, setHovered] = useState(false)
   const over = (e) => {
@@ -54,7 +54,7 @@ function Word({ children, ...props }) {
   )
 }
 
-export function Cloud({ count = 4, radius = 20 }) {
+export function Cloud({ count = 4, radius = 20, fontSize = 0.5 }) {
   // Create a count x count random words with spherical distribution
   // const definedWords = ['react', 'javascript', 'typescript', 'css', 'html', 'nextjs', 'vue', 'nuxtjs', 'github', 'amazon', 'azure']
   const words = useMemo(() => {
@@ -67,5 +67,5 @@ export function Cloud({ count = 4, radius = 20 }) {
         temp.push([new THREE.Vector3().setFromSpherical(spherical.set(radius, phiSpan * i, thetaSpan * j)), randomWord()])
     return temp
   }, [count, radius])
-  return words.map(([pos, word], index) => <Word key={index} position={pos} children={word} />)
+  return words.map(([pos, word], index) => <Word key={index} position={pos} children={word} fontSize={fontSize} />)
 }

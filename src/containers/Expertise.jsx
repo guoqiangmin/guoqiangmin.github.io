@@ -97,7 +97,7 @@ function Rig({ children }) {
     ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, (state.mouse.y * Math.PI) / 10, 0.25)
   })
   return (
-    <group ref={ref} position={[-0.5, 0.2, 0.5]}>
+    <group ref={ref} position={[-0.2, 0.2, 0.5]}>
       {children}
     </group>
   )
@@ -105,6 +105,10 @@ function Rig({ children }) {
 
 export function Keywords({ width, height }) {
   const theme = useTheme()
+  const { viewport } = useThree()
+  const scale = Math.min(1, viewport.width / 16)
+  const fontSize = scale < 0.5 ? 0.4 : scale * 0.5
+  const cloudRadius = scale < 0.5 ? 2 : scale * 3
 
   return (
     <group>
@@ -113,7 +117,7 @@ export function Keywords({ width, height }) {
         <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.primary} linear={true} toneMapped={false} />
       </mesh>
       <Rig>
-        <Cloud count={7} radius={3} />
+        <Cloud count={7} radius={cloudRadius} fontSize={fontSize} />
       </Rig>
     </group>
   )
@@ -191,9 +195,9 @@ export function Expertise({ onReflow }) {
   const boxProps = {
     centerAnchor: true,
     grow: 1,
-    marginTop: 0.75,
-    marginLeft: 0.25,
-    marginRight: 0.25,
+    marginTop: 0, // 0.75,
+    marginLeft: 0, // 0.25,
+    marginRight: 0, // 0.25,
     width: 'auto',
     height: 'auto',
     minWidth: 6,
@@ -204,7 +208,7 @@ export function Expertise({ onReflow }) {
   const scale = Math.min(1, viewport.width / 16)
 
   return (
-    <Box dir="column" align={'center'} justify="flex-start" marginLeft={2} marginRight={2} marginTop={2} height="auto">
+    <Box dir="column" align={'center'} justify="flex-start" marginTop={2 * scale} height="auto">
       <HeightReporter onReflow={onReflow} />
       <Box marginLeft={1.5} marginRight={1.5}>
         <Text
@@ -223,7 +227,7 @@ export function Expertise({ onReflow }) {
         <Text
           italic
           position-z={0.5}
-          fontSize={scale * 0.418}
+          fontSize={scale < 0.5 ? 0.25 : scale * 0.418}
           lineHeight={1}
           letterSpacing={0}
           color={theme.palette.text.neutral}
@@ -231,7 +235,7 @@ export function Expertise({ onReflow }) {
           {skillsData.description.toUpperCase()}
         </Text>
       </Box>
-      <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
+      <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap" marginTop={0.4 * scale}>
         <Box {...{ ...boxProps, maxWidth: 7.07 }}>{(width, height) => <Skills width={width} height={height} />}</Box>
         <Box {...{ ...boxProps, maxWidth: 11.43 }}>{(width, height) => <Keywords width={width} height={height} />}</Box>
       </Box>

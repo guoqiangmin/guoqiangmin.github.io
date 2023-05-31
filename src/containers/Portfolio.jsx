@@ -210,6 +210,10 @@ const Description = styled.div`
   line-height: 1.5rem;
   user-select: none;
   color: ${(props) => props.color};
+
+  @media (max-width: 1024px) {
+    max-width: 13rem;
+  }
 `
 
 const color = new THREE.Color()
@@ -269,23 +273,26 @@ export function SlideControl({ width, height, items, activeIndex, isFirstClick, 
   const { gl, viewport } = useThree()
   const scale = Math.min(1, viewport.width / 16)
   const slideIndex = isFirstClick && isFirstClick.current ? activeIndex : activeIndex + 1
+  const zeroPad = (num, places) => String(num).padStart(places, '0')
+  const fontSize = scale < 1 ? 0.418 : scale * 0.418
+
   return (
     <group>
       <mesh>
         <planeGeometry args={[width, height]} />
         <meshBasicMaterial transparent opacity={1} color={theme.palette.background.card.primary} linear={true} toneMapped={false} />
-        <ArrowButton rotation={[Math.PI / 2, 0, Math.PI / 2]} position={[-width / 2 + 1.45, height / 2 - 1.5, 0.1]} onClick={onPrev} />
-        <ArrowButton rotation={[Math.PI / 2, Math.PI, Math.PI / 2]} position={[-width / 2 + 4.15, height / 2 - 1.5, 0.1]} onClick={onNext} />
+        <ArrowButton rotation={[Math.PI / 2, 0, Math.PI / 2]} onClick={onPrev} position={[-width / 2 + 1.45, height / 2 - 1.5, 0]} />
         <Text
           italic
-          position={[-width / 2 + 2.25, height / 2 - 1.35, 0.1]}
-          fontSize={scale * 0.418}
+          fontSize={fontSize}
+          position={[-width / 2 + 2.25, height / 2 - 1.35, 0]}
           lineHeight={1}
           letterSpacing={0}
           color={theme.palette.text.primary}
           maxWidth={(viewport.width / 4) * 3}>
-          {`${slideIndex}/${items.length}`}
+          {`${zeroPad(slideIndex, 2)}/${items.length}`}
         </Text>
+        <ArrowButton rotation={[Math.PI / 2, Math.PI, Math.PI / 2]} position={[-width / 2 + 4.25, height / 2 - 1.5, 0]} onClick={onNext} />
       </mesh>
       <Html transform portal={{ current: gl.domElement.parentNode }} pointerEvents={'none'} zIndexRange={[1000, 9000]}>
         <FormWrapper className={'form-wrapper'}>
@@ -303,9 +310,9 @@ export function Portfolio({ onReflow }) {
   const boxProps = {
     centerAnchor: true,
     grow: 1,
-    marginTop: 0.75,
-    marginLeft: 0.25,
-    marginRight: 0.25,
+    marginTop: 0, // 0.75,
+    marginLeft: 0, // 0.25
+    marginRight: 0, // 0.25
     width: 'auto',
     height: 'auto',
     minWidth: 6,
@@ -341,7 +348,7 @@ export function Portfolio({ onReflow }) {
   }
 
   return (
-    <Box dir="column" align={'center'} justify="flex-start" marginLeft={2} marginRight={2} marginTop={2} height="auto">
+    <Box dir="column" align={'center'} justify="flex-start" marginTop={2 * scale} height="auto">
       <HeightReporter onReflow={onReflow} />
       <Box marginLeft={1.5} marginRight={1.5}>
         <Text
@@ -360,7 +367,7 @@ export function Portfolio({ onReflow }) {
         <Text
           italic
           position-z={0.5}
-          fontSize={scale * 0.418}
+          fontSize={scale < 0.5 ? 0.25 : scale * 0.418}
           lineHeight={1}
           letterSpacing={0}
           color={theme.palette.text.neutral}
@@ -368,7 +375,7 @@ export function Portfolio({ onReflow }) {
           {portfolioData.description.toUpperCase()}
         </Text>
       </Box>
-      <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap">
+      <Box dir="row" width="100%" height="auto" justify={'center'} grow={1} wrap="wrap" marginTop={0.4 * scale}>
         <Box {...{ ...boxProps, maxWidth: 13.5 }}>
           {(width, height) => (
             <CustomSlider
