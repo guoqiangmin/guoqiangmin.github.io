@@ -285,7 +285,7 @@ export function SlideControl({ width, height, items, activeIndex, isFirstClick, 
         <Text
           italic
           fontSize={fontSize}
-          position={[-width / 2 + 2.25, height / 2 - 1.35, 0]}
+          position={[-width / 2 + 2.25, height / 2 - 1.35, 0.1]}
           lineHeight={1}
           letterSpacing={0}
           color={theme.palette.text.primary}
