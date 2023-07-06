@@ -69,7 +69,8 @@ export default function App() {
               </div>
             </Scroll>
           </ScrollControls>
-          <Environment preset="city" />
+          {/*<Environment preset="city" />*/}
+          <Environment files="/hdri/venice_sunset_1k.hdr" blur={0.8} />
         </Suspense>
         <WaterEffects />
       </Canvas>
